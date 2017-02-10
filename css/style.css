@@ -3,19 +3,19 @@
   box-sizing: border-box;
 }
 
-body, html {
+/*body, html {
     overflow-x: hidden;
     overflow-y: hidden;
-}
+}*/
 
 #background{
 height:80%;
 position:absolute;
-width:80%;
+width:70%;
 top:50%;
 left:50%;
 transform: translate(-50%,-50%);
-border:2px solid black;
+/*border:2px solid black;*/
 }
 
 #start{
@@ -29,10 +29,39 @@ width:15%;
 cursor: pointer;
 }
 
+.border{
+  z-index: -1;
+  left:10%;
+  position: absolute;
+  height: 100%;
+  width:80%;
+}
+
 #battle{
   position: absolute;
   top:100%;
   height:100%;
   width:100%;
-  background: red;
+  z-index: -2;
+}
+
+#battleBackground{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  z-index: 1;
+  height: 75%;
+  width:70%;
+}
+
+#fight{
+  width:18%;
+  height: 5%;
+  position:absolute;
+  right:33%;
+  top:72%;
+  z-index: 2;
+  visibility: hidden;
+  cursor: pointer;
 }
