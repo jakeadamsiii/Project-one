@@ -8,10 +8,10 @@
   font-family: 'Pokemon_GB';
   src: url(../assets/jackster-productions_pokemon-gb/Pokemon_GB.ttf);
 }
-/*body, html {
+body, html {
     overflow-x: hidden;
     overflow-y: hidden;
-}*/
+}
 
 p{
   text-align: left;
@@ -119,4 +119,22 @@ top:25%;
   position: absolute;
   right:10%;
   top:57%;
+}
+
+#opponent{
+z-index: 5;
+height:18%;
+width:15%;
+position: absolute;
+top:22%;
+left:65%;
+}
+
+#you{
+z-index: 5;
+height:35%;
+width:21%;
+position: absolute;
+top:29%;
+left:23%;
 }
