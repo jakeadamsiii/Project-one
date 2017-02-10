@@ -1,0 +1,53 @@
+
+MVP
+
+Make a one player pokemon battle game. Replicating just the very first battle scenario from pokemon red.
+On start the player has only one option, 'press start' that will load the game.
+From here a large image loads or fades in.
+This will show charmander fighting squirtle.
+The player has 2 options (scratch or tail whip).
+Scratch, the only attacking move, will do 10hp damage to the opponent.
+Tail whip will make your next attack do +2 extra damage.
+The opponent then randomly selects which move to use against you.
+Battle continues until one players hp turns to zero.
+Then a win/lose screen will show, with a play again button.
+Favicon
+
+Bonus
+
+Interactive start screen.
+Audio and mute button
+2player?
+Player select - Charmander, Squirtle, Bulbasaur
+battle animation
+Added options for the player(run - 'cant run from battle', item -'potion - restore 10 hp', poke'mon -'you have no other pokemon')
+
+HTML
+One or two pages?
+
+Start page
+large image of poke'mon red start screen, only player option is press start.
+press start is an img of the press start button from pkm
+
+Battle page
+large image of the battle
+click fight: two options appear.
+
+ scratch - on click
+ check for crit (10% chance), crit does 20 hp
+ reduce opponents hp.
+
+Tail whip - on click
+make next attack do 5 extra hp.
+
+Opponents turn
+Occurs after player turn
+Randomly choose between the two options.
+execute chosen option against player.
+
+repeat until win condition(hp = 0);
+
+on Win
+Display won or lost.
+play again button
+Social media buttons?
