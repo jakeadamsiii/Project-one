@@ -1,12 +1,25 @@
 *{
   background: rgba(195, 207, 161, 1);
   box-sizing: border-box;
+  font-family: 'Pokemon_GB';
 }
 
+@font-face{
+  font-family: 'Pokemon_GB';
+  src: url(../assets/jackster-productions_pokemon-gb/Pokemon_GB.ttf);
+}
 /*body, html {
     overflow-x: hidden;
     overflow-y: hidden;
 }*/
+
+p{
+  text-align: left;
+  /*font-size: 15px;
+  padding-right:20px;*/
+  width:20%;
+
+}
 
 #background{
 height:80%;
@@ -20,12 +33,13 @@ transform: translate(-50%,-50%);
 
 #start{
 position:absolute;
+text-align: center;
 top:45%;
 left:50%;
 transform: translate(-50%,-50%);
 z-index:5;
 height:5%;
-width:15%;
+width:30%;
 cursor: pointer;
 }
 
@@ -61,7 +75,48 @@ cursor: pointer;
   position:absolute;
   right:33%;
   top:72%;
-  z-index: 2;
-  visibility: hidden;
+  z-index: 5;
   cursor: pointer;
+  text-align: left;
+  overflow: hidden;
+  padding-top:5px;
+  padding-left: 15px;
+  font-size: 200%;
+}
+
+#attackBox{
+  width:62%;
+  height:20%;
+  border:5px solid black;
+  z-index:7;
+  position: absolute;
+  top:66.5%;
+  display: none;
+  left:20%;
+}
+
+#scratch{
+cursor: pointer;
+position: absolute;
+right:10%;
+top:5%;
+}
+
+#growl{
+cursor: pointer;
+position: absolute;
+right:10%;
+top:25%;
+}
+
+#dash1{
+  position: absolute;
+  right:10%;
+  top:37%;
+}
+
+#dash2{
+  position: absolute;
+  right:10%;
+  top:57%;
 }

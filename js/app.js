@@ -5,6 +5,9 @@ $(()=> {
   const $fight = $('#fight');
   const $startTheme= $('#startTheme');
   const $battleTheme= $('#battleTheme');
+  const $attackBox = $('#attackBox');
+  const $scratch = $('#scratch');
+  const $growl = $('#growl');
 
   let yourHP =50;
   let opponentsHP =50;
@@ -30,7 +33,7 @@ $(()=> {
   }
 
   function attacks(){
-
+    $attackBox.fadeIn();
   }
 
 
