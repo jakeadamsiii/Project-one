@@ -20,9 +20,10 @@ Audio and mute button
 2player?
 Player select - Charmander, Squirtle, Bulbasaur
 battle animation
+Score tracker?
 Added options for the player(run - 'cant run from battle', item -'potion - restore 10 hp', poke'mon -'you have no other pokemon')
 
-HTML
+HTML?
 One or two pages?
 
 Start page

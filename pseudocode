@@ -1,0 +1,14 @@
+MVP
+
+Start screen
+//button on click fade out start screen div OR reposition page to show the battle screen
+
+Battle screen
+//fight button on click hide fight button and show two other buttons, scratch or tail whip
+//tail whip on click (make next attack do 1.2X damage)
+//scratch on click(check for critical hit (10% chance) reduce opponents hp by 10) check for win condition (one pkm has 0 hp)
+//if win condition, show win/lose screen
+//opponents turn. randomly choose between 2 options scratch or tail whip. need to think of intervals so every process doesn't occur at the same time.
+
+win/lose screen
+//play again button on click reset hp to 100% and replay battle.
