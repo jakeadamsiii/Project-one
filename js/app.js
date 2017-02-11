@@ -8,6 +8,9 @@ $(()=> {
   const $attackBox = $('#attackBox');
   const $scratch = $('#scratch');
   const $growl = $('#growl');
+  const $winScreen = $('#winScreen');
+  const $playAgain = $('#playAgain');
+  const $winLose = $('#winLose');
 
   let yourHP =50;
   let opponentsHP = 50;
@@ -29,19 +32,19 @@ $(()=> {
   function attacks(){
     $attackBox.fadeIn();
   }
-let critMultiplier=1;
+  let critMultiplier=1;
 
   function checkForCrit(){
-    let crit = Math.ceil(Math.random()*10);
+    const crit = Math.ceil(Math.random()*10);
     if (crit===1){
       critMultiplier=2;
     }else{
       critMultiplier=1;
     }
   }
-let missMultiplier=1;
+  let missMultiplier=1;
   function checkForMiss(){
-    let miss = Math.ceil(Math.random()*10);
+    const miss = Math.ceil(Math.random()*10);
     if (miss===1){
       missMultiplier=0;
     }else{
@@ -49,35 +52,67 @@ let missMultiplier=1;
     }
   }
 
-  // let buffMultiplier=1;
-  //   function checkForBuff(){
-  //     let buff = Math.ceil(Math.random()*10);
-  //     if (buff===1){
-  //       buffMultiplier=1.5;
-  //     }else{
-  //       buffMultiplier=1;
-  //     }
-  //   }
+  let yourBuffClicks = 1;
+  function buffCalculator(){
+    yourBuffClicks = yourBuffClicks+0.5;
+    $attackBox.fadeOut();
+    console.log(yourBuffClicks);
+    opponentsAttack();
+  }
+
+  let buff=1;
+  function checkForYourBuff(){
+    buff = 1 * yourBuffClicks;
+    console.log(buff);
+  }
 
   function checkForWin(){
-    if(yourHP <= 0 || opponentsHP<=0){
-
+    if(yourHP <= 0){
+      $winLose.html('You Lose!');
+      $winScreen.fadeIn(1000);
+    }else if(opponentsHP <= 0){
+      $winLose.html('You Win!');
+      $winScreen.fadeIn(1000);
     }
+  }
+
+  function opponentsAttack(){
+    checkForCrit();
+    checkForMiss();
+    // checkForBuff();
+    let opAttackPower = 10*critMultiplier*missMultiplier;
+    yourHP = yourHP - opAttackPower;
+    console.log(yourHP);
+    checkForWin();
   }
 
   function yourAttack(){
     checkForCrit();
     checkForMiss();
-    // checkForBuff();
-    let attackPower = 10*critMultiplier*missMultiplier;
+    checkForYourBuff();
+    let attackPower = 10*critMultiplier*missMultiplier*buff;
     opponentsHP = opponentsHP - attackPower;
     console.log(opponentsHP);
     $attackBox.fadeOut();
     checkForWin();
+    opponentsAttack();
+  }
+
+  function restartBattle(){
+    buff=1;
+    yourBuffClicks =1;
+    yourHP =50;
+    opponentsHP =50;
+    $winScreen.fadeOut(400);
+    $battleTheme[0].pause();
+    $startTheme[0].pause();
+    $battleTheme[0].currentTime = 0;
+    $battleTheme[0].play();
   }
 
   $pressStart.on('click', scroll);
   $fight.on('click', attacks);
   $scratch.on('click', yourAttack);
-
+  $growl.on('click', buffCalculator);
+  $playAgain.on('click', restartBattle);
 });
