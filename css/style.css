@@ -31,6 +31,53 @@ transform: translate(-50%,-50%);
 /*border:2px solid black;*/
 }
 
+.pointer{
+  position: absolute;
+  background: none;
+  height:2%;
+  width:2%;
+  z-index: 10;
+  display: none;
+}
+
+#startscreenPointer{
+  top:44.5%;
+  left:39%;
+}
+
+#fightPointer{
+  top:72.5%;
+  left:47%;
+  height:3%;
+  z-index: 7;
+}
+
+#itemPointer{
+  top:80.5%;
+  left:47%;
+  height:3%;
+  z-index: 7;
+}
+
+#runPointer{
+  top:80.5%;
+  left:66%;
+  height:3%;
+  z-index: 7;
+}
+
+#scratchPointer{
+  top:16.5%;
+  left:66%;
+  height:11%;
+}
+
+#growlPointer{
+  top:36.5%;
+  left:66%;
+  height:11%;
+}
+
 #start{
 position:absolute;
 text-align: center;
@@ -47,7 +94,7 @@ cursor: pointer;
   z-index: -1;
   left:10%;
   position: absolute;
-  height: 100%;
+  height: 98%;
   width:80%;
 }
 
@@ -91,6 +138,41 @@ cursor: pointer;
   padding-top:5px;
   padding-left: 15px;
   font-size: 200%;
+  overflow: visible;
+}
+
+#item{
+  overflow: visible;
+  background: none;
+  width:18%;
+  height: 5%;
+  position:absolute;
+  right:33.5%;
+  top:75%;
+  z-index: 5;
+  cursor: pointer;
+  text-align: left;
+  overflow: hidden;
+  font-size: 200%;
+  padding-top:5px;
+  padding-left: 15px;
+}
+
+#run{
+  overflow: visible;
+  background: none;
+  width:18%;
+  height: 5%;
+  position:absolute;
+  right:14.5%;
+  top:75%;
+  z-index: 5;
+  cursor: pointer;
+  text-align: left;
+  overflow: hidden;
+  font-size: 200%;
+  padding-top:5px;
+  padding-left: 15px;
 }
 
 #attackBox{
@@ -102,6 +184,23 @@ cursor: pointer;
   top:66.5%;
   display: none;
   left:20%;
+}
+
+#itemBox{
+  width:62%;
+  height:20%;
+  border:5px solid black;
+  z-index:7;
+  position: absolute;
+  top:66.5%;
+  display: none;
+  left:20%;
+}
+
+#itemBox p{
+  width:40%;
+  font-size: 140%;
+  padding-left: 5px;
 }
 
 #textBox{
@@ -238,7 +337,7 @@ background: none;
 }
 
 #yourhealth{
-  height:1.05%;
+  height:1.1%;
   width:20.7%;
   background: grey;
   position: absolute;
@@ -248,7 +347,7 @@ background: none;
 }
 
 #opponentshealth{
-  height:1.05%;
+  height:1.1%;
   width:20.75%;
   background: grey;
   position: absolute;

@@ -2,9 +2,12 @@ $(()=> {
   const $pressStart = $('#start');
   const $battleScreen = $('#battle');
   const $fight = $('#fight');
+  const $item = $('#item');
+  const $run = $('#run');
   const $startTheme= $('#startTheme');
   const $battleTheme= $('#battleTheme');
   const $attackBox = $('#attackBox');
+  const $itemBox = $('#itemBox');
   const $textBox = $('#textBox');
   const $scratch = $('#scratch');
   const $growl = $('#growl');
@@ -23,6 +26,13 @@ $(()=> {
   const $growlAnimation = $('#growlAnimation');
   const $batteryLight = $('#light');
   const $offScreen = $('#offScreen');
+  const $firstPointer =$('#startscreenPointer');
+  const $fightPointer =$('#fightPointer');
+  const $itemPointer =$('#itemPointer');
+  const $runPointer =$('#runPointer');
+  const $scratchPointer =$('#scratchPointer');
+  const $growlPointer =$('#growlPointer');
+
 
   let you = 'CHARMANDER';
   let rival = 'SQUIRTLE';
@@ -273,9 +283,42 @@ $(()=> {
     $yourCurrent.html(`${yourHP}`);
   }
 
+  function run(){
+    $textBox.show();
+    $textBox.html(`YOU CAN'T RUN FROM A TRAINER BATTLE!`);
+    setTimeout(function(){$textBox.fadeOut(100);}, 2000);
+  }
+
+  function item(){
+    $itemBox.fadeIn();
+    setTimeout(function(){$itemBox.fadeOut(100);}, 5000);
+  }
+
   $pressStart.on('click', scroll);
+  $pressStart.on('mouseenter', function() {$firstPointer.show();});
+  $pressStart.on('mouseleave', function() {$firstPointer.hide();});
+
   $fight.on('click', attacks);
+  $fight.on('mouseenter', function() {$fightPointer.show();});
+  $fight.on('mouseleave', function() {$fightPointer.hide();});
+
+  $item.on('click', item);
+  $item.on('mouseenter', function() {$itemPointer.show();});
+  $item.on('mouseleave', function() {$itemPointer.hide();});
+
+  $run.on('click', run);
+  $run.on('mouseenter', function() {$runPointer.show();});
+  $run.on('mouseleave', function() {$runPointer.hide();});
+
   $scratch.on('click', yourAttack);
+  $scratch.on('mouseenter', function() {$scratchPointer.show();});
+  $scratch.on('mouseleave', function() {$scratchPointer.hide();});
+
   $growl.on('click', buffCalculator);
+  $growl.on('mouseenter', function() {$growlPointer.show();});
+  $growl.on('mouseleave', function() {$growlPointer.hide();});
+
+
+
   $playAgain.on('click', restartBattle);
 });
