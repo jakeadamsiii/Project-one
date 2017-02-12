@@ -15,6 +15,11 @@ $(()=> {
   const $yourHPBar= $('#yourhealth');
   const $yourTotal = $('#hitPointTotal');
   const $yourCurrent = $('#hitPointCurrent');
+  const $yourScore = $('#yourScore');
+  const $rivalScore = $('#rivalScore');
+  const $you = $('#you');
+  const $rival = $('#opponent');
+  const $scratchAnimation = $('#scratchAnimation');
 
   let you = 'CHARMANDER';
   let rival = 'SQUIRTLE';
@@ -61,6 +66,7 @@ $(()=> {
   function checkForMiss(){
     const miss = Math.ceil(Math.random()*10);
     if (miss===1){
+      hit =false;
       $textBox.show();
       $textBox.html(`${you}'s attack missed!`);
       setTimeout(function(){$textBox.fadeOut(100);}, 4000);
@@ -68,6 +74,7 @@ $(()=> {
       console.log('missed');
     }else{
       missMultiplier=1;
+      hit =true;
     }
   }
 
@@ -79,6 +86,7 @@ $(()=> {
     you ='CHARMANDER';
     attack = 'GROWL';
     youUsedAttack();
+    attackAnimation();
     setTimeout(opponentsAttack, 2000);
   }
 
@@ -88,32 +96,105 @@ $(()=> {
     console.log(buff);
   }
 
+  let rivalBuff=1;
+  function checkForRivalBuff(){
+    rivalBuff = 1 * rivalBuffClicks;
+    console.log(rivalBuff);
+  }
+
+  let rivalBuffClicks = 1;
+  function rivalBuffCalculator(){
+    rivalBuffClicks = rivalBuffClicks+0.5;
+    checkForRivalBuff()
+  }
+
+  let wins=0;
+  let losses=0;
   function checkForWin(){
     if(opponentsHP <= 0){
       $winLose.html('You Win!');
       $winScreen.fadeIn(1000);
+      wins++;
+      $yourScore.html(wins);
     }else if(yourHP <= 0){
       $winLose.html('You Lose!');
       $winScreen.fadeIn(1000);
+      losses++;
+      $rivalScore.html(losses);
+    }
+  }
+
+  function checkAttack(){
+    let rivalAttack = Math.ceil(Math.random()*3);
+    if (rivalAttack === 1||rivalAttack === 2){
+      attack='TACKLE';
+      youUsedAttack();
+      checkForCrit();
+      checkForMiss();
+      checkForRivalBuff();
+      attackAnimation();
+      let opAttackPower = 10*critMultiplier*missMultiplier*rivalBuff;
+      yourHP = yourHP - opAttackPower;
+    }else{
+      attack='TAIL WHIP';
+      youUsedAttack();
+      rivalBuffCalculator();
+      attackAnimation();
     }
   }
 
   function opponentsAttack(){
     you = 'SQUIRTLE';
-    attack = 'TACKLE';
-    youUsedAttack();
-    checkForCrit();
-    checkForMiss();
-    // checkForBuff();
-    let opAttackPower = 10*critMultiplier*missMultiplier;
-    yourHP = yourHP - opAttackPower;
+    attack = '';
+    checkAttack();
     console.log(yourHP);
     if(yourHP < 0){
       yourHP = 0;
     }
-
     yourHealthReduction();
-    checkForWin();
+    if(opponentsHP>0){
+      checkForWin();
+    }
+  }
+  let hit = true;
+  function attackAnimation(){
+    if ((you==='CHARMANDER') && (attack==='SCRATCH')){
+      console.log('SCRATCH');
+      $you.animate({left: '28%'});
+      $you.animate({left: '24%'});
+      if(hit){
+      $scratchAnimation.fadeIn(500);
+      $scratchAnimation.fadeOut(500);
+      $rival.fadeOut(200);
+      $rival.fadeIn(200);
+      $rival.fadeOut(200);
+      $rival.fadeIn(200);
+      $rival.fadeOut(200);
+      $rival.fadeIn(200);
+      }
+    }else if((you==='CHARMANDER') && (attack==='GROWL')){
+      console.log('GROWL');
+      $you.animate({left: '26%'});
+      $you.animate({left: '22%'});
+      $you.animate({left: '24%'});
+    }else if((you==='SQUIRTLE') && (attack==='TACKLE')){
+      console.log('TACKLE');
+      $rival.animate({left: '62%', top:'24%'});
+      $rival.animate({left: '65%', top:'22%'});
+      if(hit){
+      $you.fadeOut(200);
+      $you.fadeIn(200);
+      $you.fadeOut(200);
+      $you.fadeIn(200);
+      $you.fadeOut(200);
+      $you.fadeIn(200);
+      }
+    }else if((you==='SQUIRTLE') && (attack==='TAIL WHIP')){
+      console.log('TAIL WHIP');
+      $rival.animate({left: '63%'});
+      $rival.animate({left: '67%'});
+      $rival.animate({left: '65%'});
+    }
   }
 
   function yourAttack(){
@@ -123,6 +204,7 @@ $(()=> {
     checkForCrit();
     checkForMiss();
     checkForYourBuff();
+    attackAnimation();
     let attackPower = 10*critMultiplier*missMultiplier*buff;
     opponentsHP = opponentsHP - attackPower;
     console.log(opponentsHP);
@@ -134,13 +216,15 @@ $(()=> {
 
   function youUsedAttack(){
     $textBox.show();
-    $textBox.html(`${you}<br>used ${attack}!`)
+    $textBox.html(`${you}<br>used ${attack}!`);
     setTimeout(function(){$textBox.fadeOut(100);}, 4000);
   }
 
   function restartBattle(){
     buff=1;
     yourBuffClicks =1;
+    rivalBuff=1;
+    rivalBuffClicks =1;
     yourHP =50;
     opponentsHP =50;
     $winScreen.fadeOut(400);

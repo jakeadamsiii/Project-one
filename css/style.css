@@ -51,6 +51,15 @@ cursor: pointer;
   width:80%;
 }
 
+#borderTwo{
+  z-index: -1;
+  left:10%;
+  position: absolute;
+  height: 100%;
+  width:80%;
+  background:none;
+}
+
 #battle{
   position: absolute;
   top:100%;
@@ -61,11 +70,11 @@ cursor: pointer;
 
 #battleBackground{
   position:absolute;
-  top:50%;
+  top:52%;
   left:50%;
   transform: translate(-50%,-50%);
   z-index: 1;
-  height: 75%;
+  height: 73%;
   width:70%;
 }
 
@@ -145,15 +154,17 @@ width:15%;
 position: absolute;
 top:22%;
 left:65%;
+background: none;
 }
 
 #you{
 z-index: 5;
-height:35%;
-width:21%;
+height:24%;
+width:17%;
 position: absolute;
-top:29%;
-left:23%;
+top:41%;
+left:24%;
+background: none;
 }
 
 #winScreen{
@@ -168,20 +179,51 @@ left:23%;
   background: linear-gradient(rgba(58,62,66,0),rgba(58,62,66,1));
 }
 
-#winScreen p{
+#winLose{
   position: absolute;
-  top:43%;
+  top:39%;
   left:50%;
   transform: translate(-50%,-50%);
   width:100%;
-  positon
+  font-size: 140%;
+  text-align: center;
+  color:white;
+  background: none;
+}
+
+#youScoreP{
+  position: absolute;
+  top:69%;
+  left:33%;
+  transform: translate(-50%,-50%);
+  width:100%;
   font-size: 120%;
   text-align: center;
   color:white;
   background: none;
 }
 
-#winScreen span{
+#rivalScoreP{
+  position: absolute;
+  top:69%;
+  left:65%;
+  transform: translate(-50%,-50%);
+  width:100%;
+  font-size: 120%;
+  text-align: center;
+  color:white;
+  background: none;
+}
+
+#yourScore{
+  background: none;
+}
+
+#rivalScore{
+  background: none;
+}
+
+#playAgain{
   position: absolute;
   top:53%;
   left:50%;
@@ -200,8 +242,8 @@ left:23%;
   width:20.7%;
   background: grey;
   position: absolute;
-  top:52.7%;
-  left:56.7%;
+  top:52.2%;
+  left:56.6%;
   z-index: 15;
 }
 
@@ -210,8 +252,8 @@ left:23%;
   width:20.7%;
   background: grey;
   position: absolute;
-  top:22.6%;
-  left:28.7%;
+  top:21.6%;
+  left:29%;
   z-index: 15;
   float:left;
   overflow-x: hidden;
@@ -219,7 +261,7 @@ left:23%;
 
 #hitPointTotal{
   position: absolute;
-  top:52%;
+  top:51%;
   left:68%;
 }
 
@@ -233,26 +275,26 @@ left:23%;
 
 #hitPointCurrent{
   position: absolute;
-  top:52%;
+  top:51%;
   left:56%;
 }
 
 #yourLevel{
   position: absolute;
-  top:43.1%;
+  top:42.5%;
   left:68%;
 }
 
 #rivalLevel{
   position: absolute;
-  top:13%;
+  top:12%;
   left:33%;
 }
 
 #yourName{
   position: absolute;
-  top:40%;
-  left:50%;
+  top:39%;
+  left:59%;
   width:0;
   padding: 0;
   z-index: 15;
@@ -260,9 +302,20 @@ left:23%;
 
 #rivalName{
   position: absolute;
-  top:10%;
+  top:9%;
   left:19%;
   width:0;
   padding: 0;
   z-index: 15;
+}
+
+#scratchAnimation{
+  background: none;
+  position: absolute;
+  top:26%;
+  left:65%;
+  height:12%;
+  width:12%;
+  z-index:20;
+  display: none;
 }
