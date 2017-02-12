@@ -12,6 +12,8 @@ The opponent then randomly selects which move to use against you.
 Battle continues until one players hp turns to zero.
 Then a win/lose screen will show, with a play again button.
 Favicon
+score tracker
+Easter Egg - final boss after 10 wins. 
 
 Bonus
 

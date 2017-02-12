@@ -12,3 +12,5 @@ Battle screen
 
 win/lose screen
 //play again button on click reset hp to 100% and replay battle.
+
+//100% of health = 530px
