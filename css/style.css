@@ -8,10 +8,10 @@
   font-family: 'Pokemon_GB';
   src: url(../assets/jackster-productions_pokemon-gb/Pokemon_GB.ttf);
 }
-/*body, html {
+body, html {
     overflow-x: hidden;
     overflow-y: hidden;
-}*/
+}
 
 p{
   text-align: left;
@@ -249,11 +249,11 @@ background: none;
 
 #opponentshealth{
   height:1.05%;
-  width:20.7%;
+  width:20.75%;
   background: grey;
   position: absolute;
-  top:21.6%;
-  left:29%;
+  top:28.3%;
+  left:28.7%;
   z-index: 15;
   float:left;
   overflow-x: hidden;
@@ -287,7 +287,7 @@ background: none;
 
 #rivalLevel{
   position: absolute;
-  top:12%;
+  top:18.5%;
   left:33%;
 }
 
@@ -302,7 +302,7 @@ background: none;
 
 #rivalName{
   position: absolute;
-  top:9%;
+  top:15%;
   left:19%;
   width:0;
   padding: 0;
@@ -320,8 +320,29 @@ background: none;
   display: none;
 }
 
+#growlAnimation{
+  background: none;
+  position: absolute;
+  top:33%;
+  left:65%;
+  height:12%;
+  width:12%;
+  z-index:20;
+  display: none;
+}
+
 
 /*Gameboy*/
+
+#offScreen{
+  height:73.1%;
+  width:70.1%;
+  position: absolute;
+  top:15.45%;
+  left:15%;
+  z-index:16;
+  display: none;
+}
 
 .gb-body {
   width:102%;
@@ -377,11 +398,12 @@ border:1px solid darken(#BFBAC4,20%);
 
 .display-header-text {
     position: absolute;
-    top:6.5%;
+    top:6%;
     left:39%;
     font-family: Arial, Helvetica, sans-serif;
     color:#BFBAC4;
     font-size: 100%;
+    letter-spacing:3px;
     background: none;
     }
 
@@ -421,7 +443,7 @@ border:1px solid darken(#BFBAC4,20%);
 				position:absolute;
 				top:49%;
 				left:7.5%;
-				font-size: 10px;
+				font-size: 12px;
 				font-weight: bold;
 				font-family: Arial, Helvetica, sans-serif;
 			}

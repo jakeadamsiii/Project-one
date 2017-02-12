@@ -20,6 +20,9 @@ $(()=> {
   const $you = $('#you');
   const $rival = $('#opponent');
   const $scratchAnimation = $('#scratchAnimation');
+  const $growlAnimation = $('#growlAnimation');
+  const $batteryLight = $('#light');
+  const $offScreen = $('#offScreen');
 
   let you = 'CHARMANDER';
   let rival = 'SQUIRTLE';
@@ -116,12 +119,20 @@ $(()=> {
       $winScreen.fadeIn(1000);
       wins++;
       $yourScore.html(wins);
+      $batteryLight.css({'background': '#272424'});
+      setTimeout(offScreenFadeIn, 1000);
     }else if(yourHP <= 0){
       $winLose.html('You Lose!');
       $winScreen.fadeIn(1000);
       losses++;
       $rivalScore.html(losses);
+      setTimeout(offScreenFadeIn, 1000);
+      $batteryLight.css({'background': '#272424'});
     }
+  }
+
+  function offScreenFadeIn(){
+    $offScreen.fadeIn(400);
   }
 
   function checkAttack(){
@@ -163,20 +174,27 @@ $(()=> {
       $you.animate({left: '28%'});
       $you.animate({left: '24%'});
       if(hit){
-      $scratchAnimation.fadeIn(500);
-      $scratchAnimation.fadeOut(500);
-      $rival.fadeOut(200);
-      $rival.fadeIn(200);
-      $rival.fadeOut(200);
-      $rival.fadeIn(200);
-      $rival.fadeOut(200);
-      $rival.fadeIn(200);
+        $scratchAnimation.fadeIn(500);
+        $scratchAnimation.fadeOut(500);
+        $rival.fadeOut(200);
+        $rival.fadeIn(200);
+        $rival.fadeOut(200);
+        $rival.fadeIn(200);
+        $rival.fadeOut(200);
+        $rival.fadeIn(200);
       }
     }else if((you==='CHARMANDER') && (attack==='GROWL')){
       console.log('GROWL');
       $you.animate({left: '26%'});
       $you.animate({left: '22%'});
       $you.animate({left: '24%'});
+      $growlAnimation.fadeIn(100);
+      $growlAnimation.animate({top: '40%', left: '58%'});
+      $growlAnimation.animate({top: '33%', left: '51%'});
+      $growlAnimation.animate({top: '40%', left: '46%'});
+      $growlAnimation.animate({top: '33%', left: '39%'});
+      $growlAnimation.fadeOut(100);
+      $growlAnimation.animate({top: '33%', left: '65%'});
     }else if((you==='SQUIRTLE') && (attack==='TACKLE')){
       console.log('TACKLE');
       $rival.animate({left: '62%', top:'24%'});
@@ -235,6 +253,8 @@ $(()=> {
     $oppHPBar.animate({width: '20.7%'}, 100 );
     $yourHPBar.animate({width: '20.7%'}, 100 );
     $yourCurrent.html(`${yourTotalHP}`);
+    $batteryLight.css({'background': '#ff1c1c'});
+    $offScreen.fadeOut(100);
   }
 
 
