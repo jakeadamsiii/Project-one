@@ -2,27 +2,35 @@ $(()=> {
   //variables
   const $pressStart = $('#start');
   const $battleScreen = $('#battle');
+  const $labScreen = $('#lab');
+  //Player options
   const $fight = $('#fight');
   const $item = $('#item');
   const $run = $('#run');
   const $pkmn = $('#pkmn');
+  //audio controls
   const $mute = $('#mute');
   const $play = $('#play');
   const $mute2 = $('#mute2');
   const $play2 = $('#play2');
   const $startTheme= $('#startTheme');
   const $battleTheme= $('#battleTheme');
+  //text boxes
   const $attackBox = $('#attackBox');
   const $itemBox = $('#itemBox');
+  const $textBox = $('#textBox');
+  //item options
   const $potion = $('#potion');
   const $quant =$('#quant');
   const $back = $('.back');
-  const $textBox = $('#textBox');
+  //attacks
   const $scratch = $('#scratch');
   const $growl = $('#growl');
+  //win screen
   const $winScreen = $('#winScreen');
   const $playAgain = $('#playAgain');
   const $winLose = $('#winLose');
+  //Battle animation and sprites
   const $oppHPBar= $('#opponentshealth');
   const $yourHPBar= $('#yourhealth');
   const $yourTotal = $('#hitPointTotal');
@@ -33,8 +41,10 @@ $(()=> {
   const $rival = $('#opponent');
   const $scratchAnimation = $('#scratchAnimation');
   const $growlAnimation = $('#growlAnimation');
+  //Gameboy
   const $batteryLight = $('#light');
   const $offScreen = $('#offScreen');
+  //Pointers (arrows)
   const $firstPointer =$('#startscreenPointer');
   const $fightPointer =$('#fightPointer');
   const $itemPointer =$('#itemPointer');
@@ -43,6 +53,18 @@ $(()=> {
   const $potionPointer =$('#potionPointer');
   const $scratchPointer =$('#scratchPointer');
   const $growlPointer =$('#growlPointer');
+
+//character select pokeballs
+  const $bulbaBall = $('#bulbaBall');
+  const $charBall = $('#charBall');
+  const $squirtBall = $('#squirtBall');
+//character select images
+  const $bulbasaur = $('#bulbasaur');
+  const $charmander = $('#charmander');
+  const $squirtle = $('#squirtle');
+  const $borderBulba = $('#borderBulba');
+  const $borderChar = $('#borderChar');
+  const $borderSquirt = $('#borderSquirt');
 
 //game variables
   let you = 'CHARMANDER';
@@ -56,12 +78,18 @@ $(()=> {
   let yourHP =50;
   let opponentsHP = 50;
 
-  //scroll from landing page to battle page
+  //scroll from landing page
   function scroll(){
+    $('html,body').animate({scrollTop: $labScreen.offset().top},'slow');
+    battleMusic();
+  }
+
+  function move(){
     $('html,body').animate({scrollTop: $battleScreen.offset().top},'slow');
     battleMusic();
   }
 
+  //set up audio
   function battleMusic(){
     $startTheme[0].pause();
     $battleTheme[0].play();
@@ -71,8 +99,9 @@ $(()=> {
     $attackBox.fadeIn();
   }
 
+//battle logic
   let critMultiplier=1;
-
+//critical hit
   function checkForCrit(){
     const crit = Math.ceil(Math.random()*10);
     if (crit===1){
@@ -86,6 +115,7 @@ $(()=> {
     }
   }
 
+//miss
   let missMultiplier=1;
   function checkForMiss(){
     const miss = Math.ceil(Math.random()*10);
@@ -102,6 +132,7 @@ $(()=> {
     }
   }
 
+//buffs
   let yourBuffClicks = 1;
   function buffCalculator(){
     yourBuffClicks = yourBuffClicks+0.5;
@@ -132,6 +163,7 @@ $(()=> {
     checkForRivalBuff()
   }
 
+//checking for win conditions
   let wins=0;
   let losses=0;
   function checkForWin(){
@@ -156,6 +188,7 @@ $(()=> {
     $offScreen.fadeIn(400);
   }
 
+//check attack for correct animation and damage calculation
   function checkAttack(){
     let rivalAttack = Math.ceil(Math.random()*3);
     if (rivalAttack === 1||rivalAttack === 2){
@@ -188,7 +221,7 @@ $(()=> {
       checkForWin();
     }
   }
-
+//animations
   let hit = true;
   function attackAnimation(){
     if ((you==='CHARMANDER') && (attack==='SCRATCH')){
@@ -237,6 +270,7 @@ $(()=> {
     }
   }
 
+//Attack functions
   function yourAttack(){
     you = 'CHARMANDER';
     attack = 'SCRATCH';
@@ -262,6 +296,12 @@ $(()=> {
     }
   }
 
+  function rivalHealthReduction(){
+    let oppWidth = opponentsHP*0.414;
+    $oppHPBar.animate({width: `${oppWidth}%`}, 500 );
+  }
+
+//Restart
   function restartBattle(){
     buff=1;
     yourBuffClicks =1;
@@ -285,13 +325,6 @@ $(()=> {
     $mute2.fadeIn();
   }
 
-
-  function rivalHealthReduction(){
-    let oppWidth = opponentsHP*0.414;
-    $oppHPBar.animate({width: `${oppWidth}%`}, 500 );
-  }
-
-
   $yourTotal.html(`${yourTotalHP}`);
   $yourCurrent.html(`${yourHP}`);
 
@@ -301,12 +334,20 @@ $(()=> {
     $yourCurrent.html(`${yourHP}`);
   }
 
+//player functions
   function run(){
     $textBox.show();
     $textBox.html(`YOU CAN'T RUN FROM A TRAINER BATTLE!`);
     setTimeout(function(){$textBox.fadeOut(100);}, 2000);
   }
 
+  function pkmn(){
+    $textBox.show();
+    $textBox.html(`YOU ONLY HAVE ONE POKE'MON!`);
+    setTimeout(function(){$textBox.fadeOut(100);}, 2000);
+  }
+
+//item related functions
   function item(){
     $itemBox.fadeIn();
     // setTimeout(function(){$itemBox.fadeOut(100);}, 5000);
@@ -318,12 +359,12 @@ $(()=> {
     if (itemCount<=0){
       $textBox.show();
       $textBox.html(`YOU HAVE NO POTIONS!`);
-      // setTimeout(function(){$textBox.fadeOut(100);}, 2000);
+      setTimeout(function(){$textBox.fadeOut(100);}, 2000);
     }else{
       if(yourHP===50){
         $textBox.show();
         $textBox.html(`IT WILL HAVE NO EFFECT!`);
-        // setTimeout(function(){$textBox.fadeOut(100);}, 2000);
+        setTimeout(function(){$textBox.fadeOut(100);}, 2000);
     }else{
         yourHP = yourHP+20;
         $itemBox.hide();
@@ -344,12 +385,7 @@ $(()=> {
     }
   }
 
-  function pkmn(){
-    $textBox.show();
-    $textBox.html(`YOU ONLY HAVE ONE POKE'MON!`);
-    setTimeout(function(){$textBox.fadeOut(100);}, 2000);
-  }
-
+//audio functions
   function mute(){
     $battleTheme[0].pause();
     $startTheme[0].pause();
@@ -375,7 +411,7 @@ $(()=> {
     $play2.fadeOut();
     $mute2.fadeIn();
   }
-
+//events
   $pressStart.on('click', scroll);
   $pressStart.on('mouseenter', function() {$firstPointer.show();});
   $pressStart.on('mouseleave', function() {$firstPointer.hide();});
@@ -416,6 +452,18 @@ $(()=> {
   $mute2.on('click', mute2);
   $play2.on('click', play2);
 
-
   $playAgain.on('click', restartBattle);
+
+  //ball events
+  $bulbaBall.on('click', move);
+  $bulbaBall.on('mouseenter', function() {$bulbasaur.show(); $borderBulba.show();});
+  $bulbaBall.on('mouseleave', function() {$bulbasaur.hide(); $borderBulba.hide();});
+
+  $charBall.on('click', move);
+  $charBall.on('mouseenter', function() {$charmander.show(); $borderChar.show();});
+  $charBall.on('mouseleave', function() {$charmander.hide(); $borderChar.hide();});
+
+  $squirtBall.on('click', move);
+  $squirtBall.on('mouseenter', function() {$squirtle.show(); $borderSquirt.show();});
+  $squirtBall.on('mouseleave', function() {$squirtle.hide(); $borderSquirt.hide();});
 });

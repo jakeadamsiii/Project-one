@@ -149,9 +149,92 @@ cursor: pointer;
   background:none;
 }
 
-#battle{
+#lab{
   position: absolute;
   top:100%;
+  height:100%;
+  width:100%;
+  z-index: -2;
+}
+
+#oaks_lab{
+  position: absolute;
+  top:0;
+  left:-1%;
+  height:100%;
+  width:101%;
+  z-index: -2;
+}
+.ball{
+  position:absolute;
+  height:15%;
+  width:7.5%;
+  background: none;
+  top:59%;
+  border-radius: 100px;
+  cursor: pointer;
+}
+
+#bulbaBall{
+  left:55.8%;
+}
+
+#charBall{
+  left:67.8%;
+}
+
+#squirtBall{
+  left:79.8%;
+}
+
+.pokemon{
+  background: none;
+  position: absolute;
+  height:20%;
+  width:10%;
+  top:30%;
+  display:none;
+}
+
+#bulbasaur{
+  left:52.8%;
+  height:30%;
+  width:15%;
+  top:25%;
+}
+
+#charmander{
+  left:67.8%;
+}
+
+#squirtle{
+  left:79.8%;
+}
+
+.pokeborder{
+  height:30%;
+  width:17%;
+  top:25%;
+  display: none;
+}
+
+#borderBulba{
+  left:52%;
+}
+
+#borderChar{
+  left:64%;
+}
+
+#borderSquirt{
+  left:76%;
+}
+
+
+
+#battle{
+  position: absolute;
+  top:200%;
   height:100%;
   width:100%;
   z-index: -2;
