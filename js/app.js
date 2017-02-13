@@ -1,4 +1,5 @@
 $(()=> {
+  //variables
   const $pressStart = $('#start');
   const $battleScreen = $('#battle');
   const $fight = $('#fight');
@@ -43,9 +44,9 @@ $(()=> {
   const $scratchPointer =$('#scratchPointer');
   const $growlPointer =$('#growlPointer');
 
-
+//game variables
   let you = 'CHARMANDER';
-  let rival = 'SQUIRTLE';
+  const rival = 'SQUIRTLE';
   let attack = '';
 
   $('#yourName').html(`${you}`);
@@ -78,7 +79,7 @@ $(()=> {
       $textBox.show();
       $textBox.html(`${you} landed a critical hit!`);
       console.log('crit');
-      setTimeout(function(){$textBox.fadeOut(100);}, 4000);
+      setTimeout(function(){$textBox.fadeOut(100);}, 2000);
       critMultiplier=2;
     }else{
       critMultiplier=1;
@@ -92,7 +93,7 @@ $(()=> {
       hit =false;
       $textBox.show();
       $textBox.html(`${you}'s attack missed!`);
-      setTimeout(function(){$textBox.fadeOut(100);}, 4000);
+      setTimeout(function(){$textBox.fadeOut(100);}, 2000);
       missMultiplier=0;
       console.log('missed');
     }else{
@@ -110,7 +111,7 @@ $(()=> {
     attack = 'GROWL';
     youUsedAttack();
     attackAnimation();
-    setTimeout(opponentsAttack, 2000);
+    setTimeout(opponentsAttack, 2100);
   }
 
   let buff=1;
@@ -187,6 +188,7 @@ $(()=> {
       checkForWin();
     }
   }
+
   let hit = true;
   function attackAnimation(){
     if ((you==='CHARMANDER') && (attack==='SCRATCH')){
@@ -249,13 +251,15 @@ $(()=> {
     $attackBox.fadeOut();
     rivalHealthReduction();
     checkForWin();
-    setTimeout(opponentsAttack, 2000);
+    setTimeout(opponentsAttack, 2100);
   }
 
   function youUsedAttack(){
     $textBox.show();
     $textBox.html(`${you}<br>used ${attack}!`);
-    setTimeout(function(){$textBox.fadeOut(100);}, 4000);
+    if (you==='SQUIRTLE'){
+      setTimeout(function(){$textBox.fadeOut(100);}, 2000);
+    }
   }
 
   function restartBattle(){
@@ -277,6 +281,8 @@ $(()=> {
     $offScreen.fadeOut(100);
     itemCount=1;
     $quant.html(' x01');
+    $play2.fadeOut();
+    $mute2.fadeIn();
   }
 
 
@@ -305,24 +311,25 @@ $(()=> {
     $itemBox.fadeIn();
     // setTimeout(function(){$itemBox.fadeOut(100);}, 5000);
   }
+
   let itemCount=1;
   $quant.html(' x01');
   function potion(){
     if (itemCount<=0){
       $textBox.show();
       $textBox.html(`YOU HAVE NO POTIONS!`);
-      setTimeout(function(){$textBox.fadeOut(100);}, 2000);
+      // setTimeout(function(){$textBox.fadeOut(100);}, 2000);
     }else{
       if(yourHP===50){
         $textBox.show();
         $textBox.html(`IT WILL HAVE NO EFFECT!`);
-        setTimeout(function(){$textBox.fadeOut(100);}, 2000);
+        // setTimeout(function(){$textBox.fadeOut(100);}, 2000);
     }else{
         yourHP = yourHP+20;
         $itemBox.hide();
         $textBox.show();
         $textBox.html(`YOU USED A POTION!`);
-        setTimeout(function(){$textBox.fadeOut(100);}, 2000);
+        // setTimeout(function(){$textBox.fadeOut(100);}, 2000);
         if(yourHP>50){
           yourHP=50;
 
@@ -332,7 +339,7 @@ $(()=> {
         yourHealthReduction();
         itemCount--;
         $quant.html(' x00');
-        setTimeout(opponentsAttack, 2000);
+        setTimeout(opponentsAttack, 2100);
       }
     }
   }
