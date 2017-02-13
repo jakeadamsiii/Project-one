@@ -8,10 +8,10 @@
   font-family: 'Pokemon_GB';
   src: url(../assets/jackster-productions_pokemon-gb/Pokemon_GB.ttf);
 }
-body, html {
+/*body, html {
     overflow-x: hidden;
     overflow-y: hidden;
-}
+}*/
 
 p{
   text-align: left;
