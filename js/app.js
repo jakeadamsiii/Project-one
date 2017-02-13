@@ -5,11 +5,16 @@ $(()=> {
   const $item = $('#item');
   const $run = $('#run');
   const $pkmn = $('#pkmn');
+  const $mute = $('#mute');
+  const $play = $('#play');
+  const $mute2 = $('#mute2');
+  const $play2 = $('#play2');
   const $startTheme= $('#startTheme');
   const $battleTheme= $('#battleTheme');
   const $attackBox = $('#attackBox');
   const $itemBox = $('#itemBox');
   const $potion = $('#potion');
+  const $quant =$('#quant');
   const $back = $('.back');
   const $textBox = $('#textBox');
   const $scratch = $('#scratch');
@@ -270,6 +275,8 @@ $(()=> {
     $yourCurrent.html(`${yourTotalHP}`);
     $batteryLight.css({'background': '#ff1c1c'});
     $offScreen.fadeOut(100);
+    itemCount=1;
+    $quant.html(' x01');
   }
 
 
@@ -298,12 +305,35 @@ $(()=> {
     $itemBox.fadeIn();
     // setTimeout(function(){$itemBox.fadeOut(100);}, 5000);
   }
-
+  let itemCount=1;
+  $quant.html(' x01');
   function potion(){
-    if(yourHP===50){
+    if (itemCount<=0){
       $textBox.show();
-      $textBox.html(`IT WILL HAVE NO EFFECT!`);
+      $textBox.html(`YOU HAVE NO POTIONS!`);
       setTimeout(function(){$textBox.fadeOut(100);}, 2000);
+    }else{
+      if(yourHP===50){
+        $textBox.show();
+        $textBox.html(`IT WILL HAVE NO EFFECT!`);
+        setTimeout(function(){$textBox.fadeOut(100);}, 2000);
+    }else{
+        yourHP = yourHP+20;
+        $itemBox.hide();
+        $textBox.show();
+        $textBox.html(`YOU USED A POTION!`);
+        setTimeout(function(){$textBox.fadeOut(100);}, 2000);
+        if(yourHP>50){
+          yourHP=50;
+
+        }
+      // setTimeout(opponentsAttack(), 2000);
+      // $yourCurrent.html(yourHP);
+        yourHealthReduction();
+        itemCount--;
+        $quant.html(' x00');
+        setTimeout(opponentsAttack, 2000);
+      }
     }
   }
 
@@ -311,6 +341,32 @@ $(()=> {
     $textBox.show();
     $textBox.html(`YOU ONLY HAVE ONE POKE'MON!`);
     setTimeout(function(){$textBox.fadeOut(100);}, 2000);
+  }
+
+  function mute(){
+    $battleTheme[0].pause();
+    $startTheme[0].pause();
+    $mute.fadeOut();
+    $play.fadeIn();
+  }
+
+  function play1(){
+    $startTheme[0].play();
+    $play.fadeOut();
+    $mute.fadeIn();
+  }
+
+  function mute2(){
+    $battleTheme[0].pause();
+    $startTheme[0].pause();
+    $mute2.fadeOut();
+    $play2.fadeIn();
+  }
+
+  function play2(){
+    $battleTheme[0].play();
+    $play2.fadeOut();
+    $mute2.fadeIn();
   }
 
   $pressStart.on('click', scroll);
@@ -346,6 +402,12 @@ $(()=> {
   $growl.on('click', buffCalculator);
   $growl.on('mouseenter', function() {$growlPointer.show();});
   $growl.on('mouseleave', function() {$growlPointer.hide();});
+
+  $mute.on('click', mute);
+  $play.on('click', play1);
+
+  $mute2.on('click', mute2);
+  $play2.on('click', play2);
 
 
   $playAgain.on('click', restartBattle);
