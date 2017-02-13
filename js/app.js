@@ -15,6 +15,7 @@ $(()=> {
   const $play2 = $('#play2');
   const $startTheme= $('#startTheme');
   const $battleTheme= $('#battleTheme');
+  const $labTheme= $('#labTheme');
   //text boxes
   const $attackBox = $('#attackBox');
   const $itemBox = $('#itemBox');
@@ -67,12 +68,14 @@ $(()=> {
   const $borderSquirt = $('#borderSquirt');
 
 //game variables
-  let you = 'CHARMANDER';
-  const rival = 'SQUIRTLE';
+  let you = '';
+  let rival = '';
   let attack = '';
 
-  $('#yourName').html(`${you}`);
-  $('#rivalName').html(`${rival}`);
+  function nameCheck(){
+    $('#yourName').html(`${you}`);
+    $('#rivalName').html(`${rival}`);
+  }
 
   const yourTotalHP = 50;
   let yourHP =50;
@@ -81,7 +84,7 @@ $(()=> {
   //scroll from landing page
   function scroll(){
     $('html,body').animate({scrollTop: $labScreen.offset().top},'slow');
-    battleMusic();
+    labMusic();
   }
 
   function move(){
@@ -90,8 +93,13 @@ $(()=> {
   }
 
   //set up audio
-  function battleMusic(){
+  function labMusic(){
     $startTheme[0].pause();
+    $labTheme[0].play();
+  }
+
+  function battleMusic(){
+    $labTheme[0].pause();
     $battleTheme[0].play();
   }
 
@@ -108,7 +116,7 @@ $(()=> {
       $textBox.show();
       $textBox.html(`${you} landed a critical hit!`);
       console.log('crit');
-      setTimeout(function(){$textBox.fadeOut(100);}, 2000);
+      setTimeout(function(){$textBox.fadeOut(100);}, 1950);
       critMultiplier=2;
     }else{
       critMultiplier=1;
@@ -123,7 +131,7 @@ $(()=> {
       hit =false;
       $textBox.show();
       $textBox.html(`${you}'s attack missed!`);
-      setTimeout(function(){$textBox.fadeOut(100);}, 2000);
+      setTimeout(function(){$textBox.fadeOut(100);}, 1950);
       missMultiplier=0;
       console.log('missed');
     }else{
@@ -169,17 +177,17 @@ $(()=> {
   function checkForWin(){
     if(opponentsHP <= 0){
       $winLose.html('You Win!');
-      $winScreen.fadeIn(1000);
+      $winScreen.fadeIn(1500);
       wins++;
       $yourScore.html(wins);
       $batteryLight.css({'background': '#272424'});
-      setTimeout(offScreenFadeIn, 1000);
+      setTimeout(offScreenFadeIn, 1500);
     }else if(yourHP <= 0){
       $winLose.html('You Lose!');
-      $winScreen.fadeIn(1000);
+      $winScreen.fadeIn(1500);
       losses++;
       $rivalScore.html(losses);
-      setTimeout(offScreenFadeIn, 1000);
+      setTimeout(offScreenFadeIn, 1500);
       $batteryLight.css({'background': '#272424'});
     }
   }
@@ -303,13 +311,14 @@ $(()=> {
 
 //Restart
   function restartBattle(){
+    scroll();
     buff=1;
     yourBuffClicks =1;
     rivalBuff=1;
     rivalBuffClicks =1;
     yourHP =50;
     opponentsHP =50;
-    $winScreen.fadeOut(400);
+    $winScreen.fadeOut(1000);
     $battleTheme[0].pause();
     $startTheme[0].pause();
     $battleTheme[0].currentTime = 0;
@@ -318,11 +327,11 @@ $(()=> {
     $yourHPBar.animate({width: '20.7%'}, 100 );
     $yourCurrent.html(`${yourTotalHP}`);
     $batteryLight.css({'background': '#ff1c1c'});
-    $offScreen.fadeOut(100);
+    $offScreen.fadeOut(1000);
     itemCount=1;
     $quant.html(' x01');
     $play2.fadeOut();
-    $mute2.fadeIn();
+    $mute2.fadeIn(); 
   }
 
   $yourTotal.html(`${yourTotalHP}`);
@@ -375,7 +384,6 @@ $(()=> {
           yourHP=50;
 
         }
-      // setTimeout(opponentsAttack(), 2000);
       // $yourCurrent.html(yourHP);
         yourHealthReduction();
         itemCount--;
@@ -411,6 +419,26 @@ $(()=> {
     $play2.fadeOut();
     $mute2.fadeIn();
   }
+
+//Character Select
+function characterB(){
+  you = 'BULBASAUR';
+  rival = 'CHARMANDER';
+  nameCheck();
+}
+
+function characterC(){
+  you = 'CHARMANDER';
+  rival = 'SQUIRTLE';
+  nameCheck();
+}
+
+function characterS(){
+  you = 'SQUIRTLE';
+  rival = 'BULBASAUR';
+  nameCheck();
+}
+
 //events
   $pressStart.on('click', scroll);
   $pressStart.on('mouseenter', function() {$firstPointer.show();});
@@ -456,14 +484,17 @@ $(()=> {
 
   //ball events
   $bulbaBall.on('click', move);
-  $bulbaBall.on('mouseenter', function() {$bulbasaur.show(); $borderBulba.show();});
-  $bulbaBall.on('mouseleave', function() {$bulbasaur.hide(); $borderBulba.hide();});
+  $bulbaBall.on('click', characterB);
+  $bulbaBall.on('mouseenter', function() {$bulbasaur.fadeIn(200); $borderBulba.fadeIn(200);});
+  $bulbaBall.on('mouseleave', function() {$bulbasaur.fadeOut(200); $borderBulba.fadeOut(200);});
 
   $charBall.on('click', move);
-  $charBall.on('mouseenter', function() {$charmander.show(); $borderChar.show();});
-  $charBall.on('mouseleave', function() {$charmander.hide(); $borderChar.hide();});
+  $charBall.on('click', characterC);
+  $charBall.on('mouseenter', function() {$charmander.fadeIn(200); $borderChar.fadeIn(200);});
+  $charBall.on('mouseleave', function() {$charmander.fadeOut(200); $borderChar.fadeOut(200);});
 
   $squirtBall.on('click', move);
-  $squirtBall.on('mouseenter', function() {$squirtle.show(); $borderSquirt.show();});
-  $squirtBall.on('mouseleave', function() {$squirtle.hide(); $borderSquirt.hide();});
+  $squirtBall.on('click', characterS);
+  $squirtBall.on('mouseenter', function() {$squirtle.fadeIn(200); $borderSquirt.fadeIn(200);});
+  $squirtBall.on('mouseleave', function() {$squirtle.fadeOut(200); $borderSquirt.fadeOut(200);});
 });
