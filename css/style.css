@@ -59,10 +59,24 @@ transform: translate(-50%,-50%);
   z-index: 7;
 }
 
+#pkmnPointer{
+  top:72.5%;
+  left:66%;
+  height:3%;
+  z-index: 7;
+}
+
 #runPointer{
   top:80.5%;
   left:66%;
   height:3%;
+  z-index: 7;
+}
+
+#potionPointer{
+  top:17.5%;
+  left:3%;
+  height:12%;
   z-index: 7;
 }
 
@@ -158,6 +172,20 @@ cursor: pointer;
   padding-left: 15px;
 }
 
+#pkmn{
+  overflow: visible;
+  background: none;
+  width:10%;
+  height: 5%;
+  position:absolute;
+  right:21.5%;
+  top:72%;
+  z-index: 5;
+  cursor: pointer;
+  text-align: left;
+  padding-top:5px;
+}
+
 #run{
   overflow: visible;
   background: none;
@@ -169,7 +197,6 @@ cursor: pointer;
   z-index: 5;
   cursor: pointer;
   text-align: left;
-  overflow: hidden;
   font-size: 200%;
   padding-top:5px;
   padding-left: 15px;
@@ -197,17 +224,37 @@ cursor: pointer;
   left:20%;
 }
 
+#potion{
+  cursor: pointer;
+}
+
 #itemBox p{
   width:40%;
   font-size: 140%;
-  padding-left: 5px;
+  padding-left: 8%;
+}
+
+.back{
+  width:40%;
+  position: absolute;
+  font-size: 80%;
+  background: none;
+  top:50%;
+  left:74%;
+  cursor: pointer;
+}
+
+#back1{
+  font-size: 128%;
+  top:60%;
+  left:84%;
 }
 
 #textBox{
   width:62%;
   height:20%;
   border:5px solid black;
-  z-index:7;
+  z-index:70;
   position: absolute;
   top:66.5%;
   display: none;

@@ -4,10 +4,13 @@ $(()=> {
   const $fight = $('#fight');
   const $item = $('#item');
   const $run = $('#run');
+  const $pkmn = $('#pkmn');
   const $startTheme= $('#startTheme');
   const $battleTheme= $('#battleTheme');
   const $attackBox = $('#attackBox');
   const $itemBox = $('#itemBox');
+  const $potion = $('#potion');
+  const $back = $('.back');
   const $textBox = $('#textBox');
   const $scratch = $('#scratch');
   const $growl = $('#growl');
@@ -29,7 +32,9 @@ $(()=> {
   const $firstPointer =$('#startscreenPointer');
   const $fightPointer =$('#fightPointer');
   const $itemPointer =$('#itemPointer');
+  const $pkmnPointer =$('#pkmnPointer');
   const $runPointer =$('#runPointer');
+  const $potionPointer =$('#potionPointer');
   const $scratchPointer =$('#scratchPointer');
   const $growlPointer =$('#growlPointer');
 
@@ -291,7 +296,21 @@ $(()=> {
 
   function item(){
     $itemBox.fadeIn();
-    setTimeout(function(){$itemBox.fadeOut(100);}, 5000);
+    // setTimeout(function(){$itemBox.fadeOut(100);}, 5000);
+  }
+
+  function potion(){
+    if(yourHP===50){
+      $textBox.show();
+      $textBox.html(`IT WILL HAVE NO EFFECT!`);
+      setTimeout(function(){$textBox.fadeOut(100);}, 2000);
+    }
+  }
+
+  function pkmn(){
+    $textBox.show();
+    $textBox.html(`YOU ONLY HAVE ONE POKE'MON!`);
+    setTimeout(function(){$textBox.fadeOut(100);}, 2000);
   }
 
   $pressStart.on('click', scroll);
@@ -306,9 +325,19 @@ $(()=> {
   $item.on('mouseenter', function() {$itemPointer.show();});
   $item.on('mouseleave', function() {$itemPointer.hide();});
 
+  $potion.on('click', potion);
+  $potion.on('mouseenter', function() {$potionPointer.show();});
+  $potion.on('mouseleave', function() {$potionPointer.hide();});
+
+  $pkmn.on('click', pkmn);
+  $pkmn.on('mouseenter', function() {$pkmnPointer.show();});
+  $pkmn.on('mouseleave', function() {$pkmnPointer.hide();});
+
   $run.on('click', run);
   $run.on('mouseenter', function() {$runPointer.show();});
   $run.on('mouseleave', function() {$runPointer.hide();});
+
+  $back.on('click', function() {$itemBox.fadeOut(200); $attackBox.fadeOut(200);});
 
   $scratch.on('click', yourAttack);
   $scratch.on('mouseenter', function() {$scratchPointer.show();});
@@ -317,7 +346,6 @@ $(()=> {
   $growl.on('click', buffCalculator);
   $growl.on('mouseenter', function() {$growlPointer.show();});
   $growl.on('mouseleave', function() {$growlPointer.hide();});
-
 
 
   $playAgain.on('click', restartBattle);
