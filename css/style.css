@@ -187,6 +187,12 @@ cursor: pointer;
   left:79.8%;
 }
 
+#pikaBall{
+  left:43.8%;
+  height:19%;
+  top:37%;
+}
+
 .pokemon{
   background: none;
   position: absolute;
@@ -375,6 +381,18 @@ cursor: pointer;
   top:66.5%;
   display: none;
   left:20%;
+}
+
+#oakBox{
+  width:62%;
+  height:20%;
+  border:5px solid black;
+  z-index:12;
+  position: absolute;
+  top:66.5%;
+  display: none;
+  left:45%;
+  transform: translate(-50%);
 }
 
 .text{
@@ -709,3 +727,21 @@ border:1px solid darken(#BFBAC4,20%);
 				font-weight: bold;
 				font-family: Arial, Helvetica, sans-serif;
 			}
+
+      h1{
+        display: none;
+      }
+
+@media screen and (max-width: 900px) {
+
+ .screen{
+    color:white;
+    display:block;
+    z-index:100;
+    position: absolute;
+    top:44%;
+    left:50%;
+    padding-top:5px;
+    transform: translate(-50%,-50%);
+  }
+}

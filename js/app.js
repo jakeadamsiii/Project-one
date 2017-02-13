@@ -20,6 +20,7 @@ $(()=> {
   const $attackBox = $('#attackBox');
   const $itemBox = $('#itemBox');
   const $textBox = $('#textBox');
+  const $oakBox = $('#oakBox');
   //item options
   const $potion = $('#potion');
   const $quant =$('#quant');
@@ -59,6 +60,7 @@ $(()=> {
   const $bulbaBall = $('#bulbaBall');
   const $charBall = $('#charBall');
   const $squirtBall = $('#squirtBall');
+  const $pikaBall = $('#pikaBall');
 //character select images
   const $bulbasaur = $('#bulbasaur');
   const $charmander = $('#charmander');
@@ -73,14 +75,19 @@ $(()=> {
   let attack = '';
   let turn = 'you';
 
+  let yourTotalHP = 10;
+  let yourHP =10;
+  let opponentsHP = 10;
+
   function nameCheck(){
     $('#yourName').html(`${you}`);
     $('#rivalName').html(`${rival}`);
   }
 
-  const yourTotalHP = 50;
-  let yourHP =50;
-  let opponentsHP = 50;
+  function hpCheck(){
+    $yourTotal.html(`${yourTotalHP}`);
+    $yourCurrent.html(`${yourHP}`);
+  }
 
   //scroll from landing page
   function scroll(){
@@ -325,7 +332,14 @@ $(()=> {
   }
 
   function rivalHealthReduction(){
-    const oppWidth = opponentsHP*0.414;
+    let oppWidth = opponentsHP*0.414;
+    if (rival==='CHARMANDER'){
+      oppWidth = opponentsHP*0.414;
+    }else if(rival==='BULBASAUR'){
+      oppWidth = opponentsHP*0.345;
+    }else if(rival==='SQUIRTLE'){
+      oppWidth = opponentsHP*0.376;
+    }
     $oppHPBar.animate({width: `${oppWidth}%`}, 500 );
   }
 
@@ -336,8 +350,8 @@ $(()=> {
     yourBuffClicks =1;
     rivalBuff=1;
     rivalBuffClicks =1;
-    yourHP =50;
-    opponentsHP =50;
+    // yourHP =50;
+    // opponentsHP =50;
     $winScreen.fadeOut(1000);
     $battleTheme[0].pause();
     $startTheme[0].pause();
@@ -353,11 +367,15 @@ $(()=> {
     $mute2.fadeIn();
   }
 
-  $yourTotal.html(`${yourTotalHP}`);
-  $yourCurrent.html(`${yourHP}`);
-
   function yourHealthReduction(){
-    const yourWidth = yourHP*0.414;
+    let yourWidth = yourHP*0.414;
+    if (you==='CHARMANDER'){
+      yourWidth = yourHP*0.414;
+    }else if(you==='BULBASAUR'){
+      yourWidth = yourHP*0.345;
+    }else if(you==='SQUIRTLE'){
+      yourWidth = yourHP*0.376;
+    }
     $yourHPBar.animate({width: `${yourWidth}%`}, 500 );
     $yourCurrent.html(`${yourHP}`);
   }
@@ -395,7 +413,7 @@ $(()=> {
         $textBox.fadeOut(100);
       }, 2000);
     }else{
-      if(yourHP===50){
+      if((you==='CHARMANDER' && yourHP===50)||(you==='BULBASAUR' && yourHP===60)||(you==='SQUIRTLE' && yourHP===60)){
         $textBox.show();
         $textBox.html(`IT WILL HAVE NO EFFECT!`);
         setTimeout(function(){
@@ -408,9 +426,12 @@ $(()=> {
         $textBox.show();
         $textBox.html(`YOU USED A POTION!`);
         // setTimeout(function(){$textBox.fadeOut(100);}, 2000);
-        if(yourHP>50){
+        if(you==='CHARMANDER' && yourHP>50){
           yourHP=50;
-
+        }else if (you==='BULBASAUR' && yourHP>60){
+          yourHP=60;
+        }else if(you==='SQUIRTLE' && yourHP>55){
+          yourHP=55;
         }
       // $yourCurrent.html(yourHP);
         yourHealthReduction();
@@ -454,7 +475,11 @@ $(()=> {
     rival = 'CHARMANDER';
     $you.attr('src','bulba.png');
     $rival.attr('src','charmander.png');
+    yourTotalHP = 60;
+    yourHP =60;
+    opponentsHP = 50;
     nameCheck();
+    hpCheck();
   }
 
   function characterC(){
@@ -462,7 +487,23 @@ $(()=> {
     rival = 'SQUIRTLE';
     $you.attr('src','char.png');
     $rival.attr('src','squirtle.png');
+    yourTotalHP = 50;
+    yourHP =50;
+    opponentsHP = 55;
     nameCheck();
+    hpCheck();
+  }
+
+  function characterP(){
+    you = 'PIKACHU';
+    rival ='EEVEE';
+    $you.attr('src','chu.png');
+    $rival.attr('src','eevee.png');
+    yourTotalHP = 70;
+    yourHP =70;
+    opponentsHP = 100;
+    nameCheck();
+    hpCheck();
   }
 
   function characterS(){
@@ -474,7 +515,21 @@ $(()=> {
       'height': '21%',
       'width': '18%'
     });
+    yourTotalHP = 55;
+    yourHP =55;
+    opponentsHP = 60;
     nameCheck();
+    hpCheck();
+  }
+
+  //pikachu unlock
+  function oakTalk(){
+    $oakBox.html(`OAK: It appears you're too late, all the poke'mon have been chosen...`);
+    $oakBox.fadeIn(100);
+    setTimeout(function(){$oakBox.html(`OAK: unless you'd like this poke'mon... `);},3000);
+    setTimeout(move,6000);
+    setTimeout(function(){$oakBox.fadeOut(100);},6000);
+    characterP();
   }
 
 //events
@@ -581,4 +636,6 @@ $(()=> {
   $squirtBall.on('mouseleave', function() {
     $squirtle.fadeOut(200); $borderSquirt.fadeOut(200);
   });
+
+  $pikaBall.on('click', oakTalk);
 });
