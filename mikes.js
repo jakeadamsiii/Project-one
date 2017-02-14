@@ -82,8 +82,6 @@ $(()=> {
   const $borderChar = $('#borderChar');
   const $borderSquirt = $('#borderSquirt');
   const $Bstats = $('#bulbaStats');
-  const $Cstats = $('#charStats');
-  const $Sstats = $('#squirtStats');
 
 
 //game variables defining variables that will change later
@@ -171,44 +169,24 @@ $(()=> {
   let missMultiplier=1;
   let debuffNum=10;
   function checkForMiss(){
-    if(you==='PIKACHU'&&turn==='you'){
-      const miss = Math.ceil(Math.random()*debuffNum);
-      if (miss===1){
-        hit =false;
-        $textBox.show();
-        if(turn==='you'){
-          $textBox.html(`${you}'s attack missed!`);
-        }else{
-          $textBox.html(`${rival}'s attack missed!`);
-        }
-        setTimeout(function(){
-          $textBox.fadeOut(100);
-        }, 1950);
-        missMultiplier=0;
+    const missVal = you==='PIKACHU'&&turn==='you' ? debuffNum : 10;
+    const miss = Math.ceil(Math.random()*missVal);
+    if (miss===1){
+      hit = false;
+      const player = turn === 'you' ? you : rival;
+      $textBox
+        .show()
+        .html(`${player}'s attack missed!`);
 
-      }else{
-        missMultiplier=1;
-        hit =true;
-      }
+      setTimeout(function(){
+        $textBox.fadeOut(100);
+      }, 1950);
+
+      missMultiplier=0;
+
     }else{
-      const miss = Math.ceil(Math.random()*10);
-      if (miss===1){
-        hit =false;
-        $textBox.show();
-        if(turn==='you'){
-          $textBox.html(`${you}'s attack missed!`);
-        }else{
-          $textBox.html(`${rival}'s attack missed!`);
-        }
-        setTimeout(function(){
-          $textBox.fadeOut(100);
-        }, 1950);
-        missMultiplier=0;
-
-      }else{
-        missMultiplier=1;
-        hit =true;
-      }
+      missMultiplier=1;
+      hit =true;
     }
   }
 
@@ -282,6 +260,7 @@ $(()=> {
   let rivalBaseAttack='';
 
   function checkBaseAttack(){
+    // refactor to switch statement
     if(you==='CHARMANDER'){
       baseAttack=10;
       rivalBaseAttack=8;
@@ -301,21 +280,21 @@ $(()=> {
   let wins=0;
   let losses=0;
   function checkForWin(){
+    let result = '';
     if(opponentsHP <= 0){
-      $winLose.html('You Win!');
-      $winScreen.fadeIn(1500);
+      result = 'You Win!';
       wins++;
-      $yourScore.html(wins);
-      $batteryLight.css({'background': '#272424'});
-      setTimeout(offScreenFadeIn, 1500);
-    }else if(yourHP <= 0){
-      $winLose.html('You Lose!');
-      $winScreen.fadeIn(1500);
+      $winLose.html('You Win!');
+    } else if(yourHP <= 0){
+      result = 'You Lose!';
       losses++;
-      $rivalScore.html(losses);
-      setTimeout(offScreenFadeIn, 1500);
-      $batteryLight.css({'background': '#272424'});
     }
+    $winLose.html(result);
+    $yourScore.html(wins);
+    $winScreen.fadeIn(1500);
+    $rivalScore.html(losses);
+    setTimeout(offScreenFadeIn, 1500);
+    $batteryLight.css({'background': '#272424'});
   }
 
   function offScreenFadeIn(){
@@ -392,12 +371,14 @@ $(()=> {
       if(hit){
         $scratchAnimation.fadeIn(500);
         $scratchAnimation.fadeOut(500);
-        $rival.fadeOut(200);
-        $rival.fadeIn(200);
-        $rival.fadeOut(200);
-        $rival.fadeIn(200);
-        $rival.fadeOut(200);
-        $rival.fadeIn(200);
+        // $rival.fadeOut(200);
+        // $rival.fadeIn(200);
+        // $rival.fadeOut(200);
+        // $rival.fadeIn(200);
+        // $rival.fadeOut(200);
+        // $rival.fadeIn(200);
+        $rival.addClass('flash');
+        setTimeout(() => $rival.removeClass('flash'), 500);
       }
     }else if (turn==='you' && attack==='TACKLE'){
 
@@ -863,10 +844,10 @@ $(()=> {
     $bulbasaur.fadeOut(200); $borderBulba.fadeOut(200);
   });
   $bulbaBall.on('mouseenter', function() {
-    $Bstats.fadeIn(200);
+    $bulbasaur.fadeIn(200); $Bstats.fadeIn(200);
   });
   $bulbaBall.on('mouseleave', function() {
-    $Bstats.fadeOut(200);
+    $bulbasaur.fadeOut(200); $Bstats.fadeOut(200);
   });
 
   $charBall.on('click', move);
@@ -877,12 +858,6 @@ $(()=> {
   $charBall.on('mouseleave', function() {
     $charmander.fadeOut(200); $borderChar.fadeOut(200);
   });
-  $charBall.on('mouseenter', function() {
-    $Cstats.fadeIn(200);
-  });
-  $charBall.on('mouseleave', function() {
-    $Cstats.fadeOut(200);
-  });
 
   $squirtBall.on('click', move);
   $squirtBall.on('click', characterS);
@@ -891,12 +866,6 @@ $(()=> {
   });
   $squirtBall.on('mouseleave', function() {
     $squirtle.fadeOut(200); $borderSquirt.fadeOut(200);
-  });
-  $squirtBall.on('mouseenter', function() {
-    $Sstats.fadeIn(200);
-  });
-  $squirtBall.on('mouseleave', function() {
-    $Sstats.fadeOut(200);
   });
 
   $pikaBall.on('click', oakTalk);

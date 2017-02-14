@@ -9,8 +9,7 @@
   src: url(../assets/jackster-productions_pokemon-gb/Pokemon_GB.ttf);
 }
 body, html {
-    overflow-x: hidden;
-    overflow-y: hidden;
+    overflow: hidden;
 }
 
 p{
@@ -226,6 +225,26 @@ cursor: pointer;
 
 #borderBulba{
   left:52%;
+}
+
+.stats{
+  position:absolute;
+  left:52%;
+  top:76%;
+  height:16%;
+  width:17%;
+  padding:2%;
+  display: none;
+  line-height: 150%;
+  border-radius: 15px;
+}
+
+#charStats{
+left:64%;
+}
+
+#squirtStats{
+left:76%;
 }
 
 #borderChar{
@@ -756,5 +775,27 @@ border:1px solid darken(#BFBAC4,20%);
     left:50%;
     padding-top:5px;
     transform: translate(-50%,-50%);
+  }
+}
+
+.flash {
+  animation: flash 0.5s;
+}
+
+@keyframes flash {
+  10%, 90% {
+    opacity: 0;
+  }
+
+  20%, 80% {
+    opacity: 1;
+  }
+
+  30%, 50%, 70% {
+    opacity: 0;
+  }
+
+  40%, 60% {
+    opacity: 1;
   }
 }
