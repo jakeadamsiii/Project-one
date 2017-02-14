@@ -213,8 +213,16 @@ $(()=> {
   }
 
   function debuff(){
-    debuffNum=debuffNum/2;
-    console.log(debuffNum);
+    if (debuffNum<=1.25){
+      $textBox.show();
+      $textBox.html(`${rival}<br>used ${attack}, But it failed!`);
+      setTimeout(function(){
+        $textBox.fadeOut(100);
+      }, 2000);
+    }else{
+      debuffNum=debuffNum/2;
+      console.log(debuffNum);
+    }
   }
 
 //buffs - attack modifiers that effect damage dealt
