@@ -2,7 +2,8 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Project one</title>
+    <title>Pokmon GEN1 Battler</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" charset="utf-8"></script>
     <script src="js/app.js" charset="utf-8"></script>
@@ -50,7 +51,11 @@
     <div id="light" class="battery-led"></div>
     <div class="battery-led-text">BATTERY</div>
 
-    <img id="scratchAnimation" src="scratch.png" alt="scratch animation">
+    <img class="attackAnimation" id="scratchAnimation" src="scratch.png" alt="scratch animation">
+    <img class="attackAnimation" id="rivalsScratchAnimation" src="scratch.png" alt="scratch animation">
+    <img class="attackAnimation" id="thunderAnimation" src="thunderbolt1.png" alt="thunderbolt animation">
+    <img class="attackAnimation" id="boltAnimation" src="thunderbolt2.png" alt="thunderbolt animation">
+    <img class="attackAnimation" id="sandAnimation" src="sandattack.png" alt="sand animation">
     <img id="growlAnimation" src="growl.png" alt="growl animation">
     <img id="opponent" src="squirtle.png" alt="opponent">
     <img id="you" src="char.png" alt="you">
@@ -80,9 +85,9 @@
 
     <div id="attackBox">
       <img id ="scratchPointer" class="pointer" src="arrow.png" alt="arrow">
-      <p id="scratch">SCRATCH</p>
+      <p id="scratch"></p>
       <img id ="growlPointer" class="pointer" src="arrow.png" alt="arrow">
-      <p id="growl">GROWL</p>
+      <p id="growl"></p>
       <p id="dash1">-</p>
       <p id="dash2">-</p>
         <p id="back1" class="back">back</p>

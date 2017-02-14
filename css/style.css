@@ -8,10 +8,10 @@
   font-family: 'Pokemon_GB';
   src: url(../assets/jackster-productions_pokemon-gb/Pokemon_GB.ttf);
 }
-/*body, html {
+body, html {
     overflow-x: hidden;
     overflow-y: hidden;
-}*/
+}
 
 p{
   text-align: left;
@@ -588,8 +588,7 @@ background: none;
   padding: 0;
   z-index: 15;
 }
-
-#scratchAnimation{
+.attackAnimation{
   background: none;
   position: absolute;
   top:26%;
@@ -600,6 +599,21 @@ background: none;
   display: none;
 }
 
+#rivalsScratchAnimation{
+  left:26%;
+  top:47%;
+  z-index:16;
+}
+
+#sandAnimation{
+  left:56%;
+  top:31%;
+  -ms-transform: rotate(-20deg);
+    -webkit-transform: rotate(-20deg);
+    transform: rotate(-20deg);
+  z-index: 14;
+}
+
 #growlAnimation{
   background: none;
   position: absolute;
@@ -607,10 +621,9 @@ background: none;
   left:65%;
   height:12%;
   width:12%;
-  z-index:20;
+  z-index:14;
   display: none;
 }
-
 
 /*Gameboy*/
 
@@ -620,7 +633,7 @@ background: none;
   position: absolute;
   top:15.45%;
   left:15%;
-  z-index:16;
+  z-index:17;
   display: none;
 }
 
