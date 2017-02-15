@@ -169,7 +169,7 @@ $(()=> {
   let missMultiplier=1;
   let debuffNum=10;
   function checkForMiss(){
-    const missVal = you==='PIKACHU'&&turn==='you' ? debuffNum : 10;
+    const missVal = (you==='PIKACHU'&&turn==='you') ? debuffNum : 10;
     const miss = Math.ceil(Math.random()*missVal);
     if (miss===1){
       hit = false;
@@ -277,24 +277,27 @@ $(()=> {
   }
 
 //checking for win conditions
-  let wins=0;
-  let losses=0;
-  function checkForWin(){
-    let result = '';
-    if(opponentsHP <= 0){
-      result = 'You Win!';
-      wins++;
-      $winLose.html('You Win!');
-    } else if(yourHP <= 0){
-      result = 'You Lose!';
-      losses++;
-    }
+  let result = '';
+  function winning(){
     $winLose.html(result);
     $yourScore.html(wins);
-    $winScreen.fadeIn(1500);
     $rivalScore.html(losses);
     setTimeout(offScreenFadeIn, 1500);
     $batteryLight.css({'background': '#272424'});
+  }
+
+  let wins=0;
+  let losses=0;
+  function checkForWin(){
+    if(opponentsHP <= 0){
+      result = 'You Win!';
+      wins++;
+      winning();
+    } else if(yourHP <= 0){
+      result = 'You Lose!';
+      losses++;
+      winning();
+    }
   }
 
   function offScreenFadeIn(){
@@ -378,7 +381,7 @@ $(()=> {
         // $rival.fadeOut(200);
         // $rival.fadeIn(200);
         $rival.addClass('flash');
-        setTimeout(() => $rival.removeClass('flash'), 500);
+        setTimeout(() => $rival.removeClass('flash'), 1000);
       }
     }else if (turn==='you' && attack==='TACKLE'){
 

@@ -37,6 +37,7 @@ $(()=> {
   const $growl = $('#growl');
   let $attackOne ='';
   let $attackTwo = '';
+  let aiAgression='';
   //win screen
   const $winScreen = $('#winScreen');
   const $playAgain = $('#playAgain');
@@ -84,7 +85,6 @@ $(()=> {
   const $Bstats = $('#bulbaStats');
   const $Cstats = $('#charStats');
   const $Sstats = $('#squirtStats');
-
 
 //game variables defining variables that will change later
   let you = '';
@@ -141,10 +141,6 @@ $(()=> {
     $battleTheme[0].play();
   }
 
-  function attacks(){
-    $attackBox.fadeIn();
-  }
-
 //battle logic
   let critMultiplier=1;
 //critical hit
@@ -152,13 +148,8 @@ $(()=> {
     const crit = Math.ceil(Math.random()*10);
     if (crit===1){
       $textBox.show();
-      if(turn==='you'){
-        $textBox.html(`${you} landed a critical hit!`);
-      }else{
-        $textBox.html(`${rival} landed a critical hit!`);
-      }
-
-      setTimeout(function(){
+      (turn==='you') ? $textBox.html(`${you} landed a critical hit!`) : $textBox.html(`${rival} landed a critical hit!`);
+      setTimeout(()=>{
         $textBox.fadeOut(100);
       }, 1950);
       critMultiplier=2;
@@ -166,62 +157,37 @@ $(()=> {
       critMultiplier=1;
     }
   }
-
+  let player='';
 //miss
   let missMultiplier=1;
   let debuffNum=10;
   function checkForMiss(){
-    if(you==='PIKACHU'&&turn==='you'){
-      const miss = Math.ceil(Math.random()*debuffNum);
-      if (miss===1){
-        hit =false;
-        $textBox.show();
-        if(turn==='you'){
-          $textBox.html(`${you}'s attack missed!`);
-        }else{
-          $textBox.html(`${rival}'s attack missed!`);
-        }
-        setTimeout(function(){
-          $textBox.fadeOut(100);
-        }, 1950);
-        missMultiplier=0;
-
-      }else{
-        missMultiplier=1;
-        hit =true;
-      }
+    const missVal = (you==='PIKACHU'&&turn==='you') ? debuffNum : 10;
+    const miss = Math.ceil(Math.random()*missVal);
+    if (miss===1){
+      hit = false;
+      player = turn === 'you' ? you : rival;
+      $textBox
+        .show()
+        .html(`${player}'s attack missed!`);
+      setTimeout(function(){
+        $textBox.fadeOut(100);
+      }, 1950);
+      missMultiplier=0;
     }else{
-      const miss = Math.ceil(Math.random()*10);
-      if (miss===1){
-        hit =false;
-        $textBox.show();
-        if(turn==='you'){
-          $textBox.html(`${you}'s attack missed!`);
-        }else{
-          $textBox.html(`${rival}'s attack missed!`);
-        }
-        setTimeout(function(){
-          $textBox.fadeOut(100);
-        }, 1950);
-        missMultiplier=0;
-
-      }else{
-        missMultiplier=1;
-        hit =true;
-      }
+      missMultiplier=1;
+      hit =true;
     }
   }
 
+  let fail='';
   function debuff(){
-    if (debuffNum<=1.25){
-      $textBox.show();
-      $textBox.html(`${rival}<br>used ${attack}, But it failed!`);
-      setTimeout(function(){
-        $textBox.fadeOut(100);
-      }, 2000);
+    if (debuffNum<=1.25){  // if statement used to prevent unwinable situation where attacks never hit
+      fail=' But it failed!';
+      youUsedAttack();
+      textBoxFadeOut();
     }else{
       debuffNum=debuffNum/2;
-      console.log(debuffNum);
     }
   }
 
@@ -229,6 +195,7 @@ $(()=> {
   let yourBuffClicks = 1;
   function buffCalculator(){
     turn='you';
+    player = turn === 'you' ? you : rival;
     switch(you){
       case 'CHARMANDER':
         attack = 'GROWL';
@@ -257,16 +224,13 @@ $(()=> {
 
   let rivalBuff=1;
   function checkForRivalBuff(){
-    if (rival==='EEVEE'&&attack==='SAND ATTACK'){
-      debuff();
-    }else{
-      rivalBuff = 1 * rivalBuffClicks;
-    }
+    (rival==='EEVEE'&&attack==='SAND ATTACK') ? debuff() : rivalBuff = 1 * rivalBuffClicks;
   }
 
   let rivalBuffClicks = 1;
   function rivalBuffCalculator(){
     turn='rival';
+    player = turn === 'you' ? you : rival;
     switch(rival){
       case 'CHARMANDER':
         attack = 'GROWL';
@@ -290,50 +254,58 @@ $(()=> {
   let rivalBaseAttack='';
 
   function checkBaseAttack(){
-    if(you==='CHARMANDER'){
-      baseAttack=10;
-      rivalBaseAttack=8;
-    }else if(you==='SQUIRTLE'){
-      baseAttack=8;
-      rivalBaseAttack=8;
-    }else if(you==='BULBASAUR'){
-      baseAttack=8;
-      rivalBaseAttack=10;
-    }else if (you==='PIKACHU'){
-      baseAttack=12;
-      rivalBaseAttack=14;
+    switch(you){
+      case 'CHARMANDER':
+        baseAttack=10;
+        rivalBaseAttack=8;
+        break;
+      case 'SQUIRTLE':
+        baseAttack=8;
+        rivalBaseAttack=8;
+        break;
+      case 'BULBASAUR':
+        baseAttack=8;
+        rivalBaseAttack=10;
+        break;
+      case 'PIKACHU':
+        baseAttack=12;
+        rivalBaseAttack=14;
+        break;
     }
   }
 
 //checking for win conditions
+  let result = '';
+  function winning(){
+    $winLose.html(result);
+    $yourScore.html(wins);
+    $rivalScore.html(losses);
+    $winScreen.fadeIn(1500);
+    setTimeout(()=>{
+      $offScreen.fadeIn(400);
+    }, 1500);
+    $batteryLight.css({'background': '#272424'});
+  }
+
   let wins=0;
   let losses=0;
   function checkForWin(){
     if(opponentsHP <= 0){
-      $winLose.html('You Win!');
-      $winScreen.fadeIn(1500);
+      result = 'You Win!';
       wins++;
-      $yourScore.html(wins);
-      $batteryLight.css({'background': '#272424'});
-      setTimeout(offScreenFadeIn, 1500);
-    }else if(yourHP <= 0){
-      $winLose.html('You Lose!');
-      $winScreen.fadeIn(1500);
+      winning();
+    } else if(yourHP <= 0){
+      result = 'You Lose!';
       losses++;
-      $rivalScore.html(losses);
-      setTimeout(offScreenFadeIn, 1500);
-      $batteryLight.css({'background': '#272424'});
+      winning();
     }
-  }
-
-  function offScreenFadeIn(){
-    $offScreen.fadeIn(400);
   }
 
 //check attack for correct animation and damage calculation rival is 2/3 likely to do a damaging move
   function checkAttack(){
-    const rivalAttack = Math.ceil(Math.random()*3);
+    const rivalAttack = Math.ceil(Math.random()*aiAgression);
     turn='rival';
+    player = turn === 'you' ? you : rival;
     if (rivalAttack === 1||rivalAttack === 2){
       switch(rival){
         case 'CHARMANDER':
@@ -347,9 +319,11 @@ $(()=> {
           break;
         case 'EEVEE':
           attack = 'TACKLE';
+          fail='';
           break;
       }
-      rivalUsedAttack();
+      youUsedAttack();
+      textBoxFadeOut();
       checkForCrit();
       checkForMiss();
       checkForRivalBuff();
@@ -372,15 +346,14 @@ $(()=> {
           attack = 'SAND ATTACK';
           break;
       }
-      rivalUsedAttack();
+      youUsedAttack();
+      textBoxFadeOut();
       rivalBuffCalculator();
       attackAnimation();
     }
   }
 
   function opponentsAttack(){
-    // you = 'SQUIRTLE';
-    // attack = '';
     checkAttack();
     if(yourHP < 0){
       yourHP = 0;
@@ -390,6 +363,7 @@ $(()=> {
       checkForWin();
     }
   }
+
 //animations
   let hit = true;
   function attackAnimation(){
@@ -400,24 +374,17 @@ $(()=> {
       if(hit){
         $scratchAnimation.fadeIn(500);
         $scratchAnimation.fadeOut(500);
-        $rival.fadeOut(200);
-        $rival.fadeIn(200);
-        $rival.fadeOut(200);
-        $rival.fadeIn(200);
-        $rival.fadeOut(200);
-        $rival.fadeIn(200);
+        $rival.addClass('flash');
+        setTimeout(() => $rival.removeClass('flash'),1000);
+
       }
     }else if (turn==='you' && attack==='TACKLE'){
 
       $you.animate({left: '28%'});
       $you.animate({left: '24%'});
       if(hit){
-        $rival.fadeOut(200);
-        $rival.fadeIn(200);
-        $rival.fadeOut(200);
-        $rival.fadeIn(200);
-        $rival.fadeOut(200);
-        $rival.fadeIn(200);
+        $rival.addClass('flash');
+        setTimeout(() => $rival.removeClass('flash'),1000);
       }
     }else if(turn==='you' && attack==='GROWL'){
 
@@ -443,12 +410,8 @@ $(()=> {
         $thunderAnimation.fadeOut(200);
         $boltAnimation.fadeIn(200);
         $boltAnimation.fadeOut(200);
-        $rival.fadeOut(200);
-        $rival.fadeIn(200);
-        $rival.fadeOut(200);
-        $rival.fadeIn(200);
-        $rival.fadeOut(200);
-        $rival.fadeIn(200);
+        $rival.addClass('flash');
+        setTimeout(() => $rival.removeClass('flash'),1000);
       }
     }else if(turn==='you' && attack==='TAIL WHIP'){
       $you.animate({left: '26%'});
@@ -459,12 +422,8 @@ $(()=> {
       $rival.animate({left: '62%', top: '24%'});
       $rival.animate({left: '65%', top: '22%'});
       if(hit){
-        $you.fadeOut(200);
-        $you.fadeIn(200);
-        $you.fadeOut(200);
-        $you.fadeIn(200);
-        $you.fadeOut(200);
-        $you.fadeIn(200);
+        $you.addClass('flash');
+        setTimeout(() => $you.removeClass('flash'),1000);
       }
     }else if(turn==='rival' && attack==='TAIL WHIP'){
 
@@ -490,12 +449,8 @@ $(()=> {
       if(hit){
         $rivalsScratchAnimation.fadeIn(500);
         $rivalsScratchAnimation.fadeOut(500);
-        $you.fadeOut(200);
-        $you.fadeIn(200);
-        $you.fadeOut(200);
-        $you.fadeIn(200);
-        $you.fadeOut(200);
-        $you.fadeIn(200);
+        $you.addClass('flash');
+        setTimeout(() => $you.removeClass('flash'),1000);
       }
     }else if(turn==='rival' && attack==='SAND ATTACK'){
       $sandAttack.fadeIn(500);
@@ -506,6 +461,7 @@ $(()=> {
 //Attack functions
   function yourAttack(){
     turn='you';
+    player = turn === 'you' ? you : rival;
     switch(you){
       case 'CHARMANDER':
         attack = 'SCRATCH';
@@ -536,16 +492,28 @@ $(()=> {
   }
 
   function youUsedAttack(){
-    $textBox.show();
-    $textBox.html(`${you}<br>used ${attack}!`);
+    $textBox.show().html(`${player}<br>used ${attack}!${fail}`);
   }
 
-  function rivalUsedAttack(){
-    $textBox.show();
-    $textBox.html(`${rival}<br>used ${attack}!`);
+  function textBoxFadeOut(){
     setTimeout(function(){
       $textBox.fadeOut(100);
     }, 2000);
+  }
+
+  function yourHealthReduction(){
+    let yourWidth = yourHP*0.414;
+    if (you==='CHARMANDER'){
+      yourWidth = yourHP*0.414;
+    }else if(you==='BULBASAUR'){
+      yourWidth = yourHP*0.345;
+    }else if(you==='SQUIRTLE'){
+      yourWidth = yourHP*0.376;
+    }else if(you==='PIKACHU'){
+      yourWidth = yourHP*0.295;
+    }
+    $yourHPBar.animate({width: `${yourWidth}%`}, 500 );
+    $yourCurrent.html(`${yourHP}`);
   }
 
   function rivalHealthReduction(){
@@ -565,14 +533,12 @@ $(()=> {
 //Restart
   function restartBattle(){
     scroll();
-    hpCheck();
     buff=1;
     yourBuffClicks =1;
     rivalBuff=1;
     rivalBuffClicks =1;
     debuffNum=10;
-    // yourHP =50;
-    // opponentsHP =50;
+    fail='';
     $winScreen.fadeOut(1000);
     $battleTheme[0].pause();
     $startTheme[0].pause();
@@ -586,67 +552,37 @@ $(()=> {
     $mute2.fadeIn();
   }
 
-  function yourHealthReduction(){
-    let yourWidth = yourHP*0.414;
-    if (you==='CHARMANDER'){
-      yourWidth = yourHP*0.414;
-    }else if(you==='BULBASAUR'){
-      yourWidth = yourHP*0.345;
-    }else if(you==='SQUIRTLE'){
-      yourWidth = yourHP*0.376;
-    }else if(you==='PIKACHU'){
-      yourWidth = yourHP*0.295;
-    }
-    $yourHPBar.animate({width: `${yourWidth}%`}, 500 );
-    $yourCurrent.html(`${yourHP}`);
-  }
-
 //player functions
   function run(){
-    $textBox.show();
-    $textBox.html(`YOU CAN'T RUN FROM A TRAINER BATTLE!`);
-    setTimeout(function(){
-      $textBox.fadeOut(100);
-    }, 2000);
+    $textBox.show().html(`YOU CAN'T RUN FROM A TRAINER BATTLE!`);
+    textBoxFadeOut();
   }
 
   function pkmn(){
-    $textBox.show();
-    $textBox.html(`YOU ONLY HAVE ONE POKE'MON!`);
-    setTimeout(function(){
-      $textBox.fadeOut(100);
-    }, 2000);
+    $textBox.show().html(`YOU ONLY HAVE ONE POKE'MON!`);
+    textBoxFadeOut();
   }
 
 //item related functions
   function item(){
     $itemBox.fadeIn();
-    // setTimeout(function(){$itemBox.fadeOut(100);}, 5000);
   }
 
   let itemCount=1;
   $quant.html(' x01');
   function potion(){
     if (itemCount<=0){
-      $textBox.show();
-      $textBox.html(`YOU HAVE NO POTIONS!`);
-      setTimeout(function(){
-        $textBox.fadeOut(100);
-      }, 2000);
+      $textBox.show().html(`YOU HAVE NO POTIONS!`);
+      textBoxFadeOut();
     }else{
       if((you==='CHARMANDER' && yourHP===50)||(you==='BULBASAUR' && yourHP===60)||(you==='SQUIRTLE' && yourHP===55)||(you==='PIKACHU' && yourHP===70)){
-        $textBox.show();
-        $textBox.html(`IT WILL HAVE NO EFFECT!`);
-        setTimeout(function(){
-          $textBox.fadeOut(100);
-        }, 2000);
+        $textBox.show().html(`IT WILL HAVE NO EFFECT!`);
+        textBoxFadeOut();
       }else{
         turn='you';
         yourHP = yourHP+20;
         $itemBox.hide();
-        $textBox.show();
-        $textBox.html(`YOU USED A POTION!`);
-        // setTimeout(function(){$textBox.fadeOut(100);}, 2000);
+        $textBox.show().html(`YOU USED A POTION!`);
         if(you==='CHARMANDER' && yourHP>50){
           yourHP=50;
         }else if (you==='BULBASAUR' && yourHP>60){
@@ -656,7 +592,6 @@ $(()=> {
         }else if(you==='PIKACHU' && yourHP>70){
           yourHP=70;
         }
-      // $yourCurrent.html(yourHP);
         yourHealthReduction();
         itemCount--;
         $quant.html(' x00');
@@ -691,6 +626,14 @@ $(()=> {
     $play2.fadeOut();
     $mute2.fadeIn();
   }
+
+  function check(){
+    nameCheck();
+    attackCheck();
+    hpCheck();
+    levelCheck();
+  }
+
   let yourLevel=0;
   let rivalLevel=0;
 //Character Select
@@ -701,15 +644,13 @@ $(()=> {
     $attackTwo='GROWL';
     yourLevel=5;
     rivalLevel=5;
+    aiAgression=3;
     $you.attr('src','bulba.png');
     $rival.attr('src','charmander.png');
     yourTotalHP = 60;
     yourHP =60;
     opponentsHP = 50;
-    nameCheck();
-    attackCheck();
-    hpCheck();
-    levelCheck();
+    check();
   }
 
   function characterC(){
@@ -719,15 +660,13 @@ $(()=> {
     $attackTwo='GROWL';
     yourLevel=5;
     rivalLevel=5;
+    aiAgression=3;
     $you.attr('src','char.png');
     $rival.attr('src','squirtle.png');
     yourTotalHP = 50;
     yourHP =50;
     opponentsHP = 55;
-    nameCheck();
-    attackCheck();
-    hpCheck();
-    levelCheck();
+    check();
   }
 
   function characterP(){
@@ -735,17 +674,16 @@ $(()=> {
     rival ='EEVEE';
     yourLevel=10;
     rivalLevel=14;
+    rivalBuff=1;
     $attackOne='THUNDERBOLT';
     $attackTwo='GROWL';
+    aiAgression=2.5;
     $you.attr('src','chu.png');
     $rival.attr('src','eevee.png');
     yourTotalHP = 70;
     yourHP =70;
     opponentsHP = 100;
-    nameCheck();
-    attackCheck();
-    hpCheck();
-    levelCheck();
+    check();
   }
 
   function characterS(){
@@ -755,6 +693,7 @@ $(()=> {
     $attackTwo='TAIL WHIP';
     yourLevel=5;
     rivalLevel=5;
+    aiAgression=4;
     $you.attr('src','squirt.png');
     $rival.attr('src','bulbasaur.png');
     $rival.css({
@@ -764,16 +703,12 @@ $(()=> {
     yourTotalHP = 55;
     yourHP =55;
     opponentsHP = 60;
-    nameCheck();
-    attackCheck();
-    hpCheck();
-    levelCheck();
+    check();
   }
 
   //pikachu unlock
   function oakTalk(){
-    $oakBox.html(`OAK: It appears you're too late, all the poke'mon have been chosen...`);
-    $oakBox.fadeIn(100);
+    $oakBox.html(`OAK: It appears you're too late, all the poke'mon have been chosen...`).fadeIn(100);
     setTimeout(function(){
       $oakBox.html(`OAK: unless you'd like this poke'mon... `);
     },3000);
@@ -793,7 +728,9 @@ $(()=> {
     $firstPointer.hide();
   });
 
-  $fight.on('click', attacks);
+  $fight.on('click', ()=>{
+    $attackBox.fadeIn();
+  });
   $fight.on('mouseenter', function() {
     $fightPointer.show();
   });
@@ -908,5 +845,4 @@ $(()=> {
   });
 
   $pikaBall.on('click', oakTalk);
-
 });
