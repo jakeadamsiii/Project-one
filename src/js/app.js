@@ -50,6 +50,7 @@ pkmn.setup = function(){
   this.$run = $('#run');
   this.$pkmn = $('#pkmn');
   //audio controls
+  this.$info = $('#info');
   this.$mute = $('#mute');
   this.$play = $('#play');
   this.$mute2 = $('#mute2');
@@ -145,6 +146,13 @@ pkmn.setup = function(){
   this.$scratch.on('click', this.yourAttack.bind(this));
 
   this.$growl.on('click', this.buffCalculator.bind(this));
+
+  this.$info.on('click',()=>{
+    this.$textBox.show().html('Click FIGHT to battle! Click ITEM to use a potion that heals 20hp.');
+    setTimeout(()=>{
+      this.$textBox.fadeOut(100);
+    }, 3000);
+  });
 
   this.$mute.on('click', this.mute.bind(this));
   this.$play.on('click', this.play1.bind(this));
