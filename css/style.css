@@ -37,6 +37,16 @@ p{
   left:75%;
 }
 
+#info{
+  position: absolute;
+  background: none;
+  top:89%;
+  left:83%;
+  height:4%;
+  width:4%;
+  cursor: pointer;
+}
+
 #background{
 height:80%;
 position:absolute;

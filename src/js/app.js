@@ -445,12 +445,12 @@ pkmn.checkAttack = function checkAttack(){
 
 pkmn.opponentsAttack = function opponentsAttack(){
   pkmn.checkAttack();
-  if(pkmn.yourHP < 0){
+  if(pkmn.yourHP <= 0){
     pkmn.yourHP = 0;
     pkmn.checkForWin();
   }
   pkmn.yourHealthReduction();
-  if(this.opponentsHP>0){
+  if(this.opponentsHP>=0){
     pkmn.checkForWin();
   }
 };
