@@ -459,7 +459,7 @@ pkmn.opponentsAttack = function opponentsAttack(){
   }
   pkmn.yourHealthReduction();
   if(this.opponentsHP>=0){
-    pkmn.checkForWin();
+    pkmn.opponentsHP = 0;
   }
 };
 
