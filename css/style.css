@@ -61,58 +61,47 @@ transform: translate(-50%,-50%);
   left:39%;
 }
 
-#fightPointer{
-  top:72.5%;
-  left:47%;
-  height:3%;
-}
-
 #itemPointer{
   top:80.5%;
-  left:47%;
-  height:3%;
+  left:48%;
+  height:20px;
+  width:15px;
 }
 
 #pkmnPointer{
   top:72.5%;
-  left:66%;
-  height:3%;
-}
-
-#runPointer{
-  top:80.5%;
-  left:66%;
-  height:3%;
-}
-
-#potionPointer{
-  top:17.5%;
-  left:3%;
-  height:12%;
-}
-
-#scratchPointer{
-  top:16.5%;
-  left:66%;
-  height:11%;
-}
-
-#growlPointer{
-  top:36.5%;
-  left:66%;
-  height:11%;
+  left:67%;
+  height:20px;
+  width:15px;
 }
 
 #start{
-position:absolute;
-text-align: center;
-top:45%;
-left:50%;
-transform: translate(-50%,-50%);
-z-index:5;
-height:5%;
-width:30%;
-cursor: pointer;
+  position:absolute;
+  text-align: center;
+  top:45%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  z-index:5;
+  height:5%;
+  width:30%;
+  cursor: pointer;
+}
+
+#start:before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 14px;
+  background-image: url(../arrow.png);
+  background-size: cover;
+  z-index: 10;
+  left: 60px;
+  top: -2px;
+  display: none;
+}
+
+#start:hover:before {
+  display: block;
 }
 
 .border{
@@ -288,6 +277,23 @@ left:76%;
   overflow: visible;
 }
 
+#fight:before {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 20px;
+  background-image: url(../arrow.png);
+  background-size: cover;
+  z-index: 10;
+  left: -10px;
+  top: 5px;
+  display: none;
+}
+
+#fight:hover:before {
+  display: block;
+}
+
 #item{
   overflow: visible;
   background: none;
@@ -315,8 +321,6 @@ left:76%;
   top:72%;
   z-index: 5;
   cursor: pointer;
-  text-align: left;
-  padding-top:5px;
 }
 
 #run{
@@ -333,6 +337,23 @@ left:76%;
   font-size: 200%;
   padding-top:5px;
   padding-left: 15px;
+}
+
+#run:before {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 20px;
+  background-image: url(../arrow.png);
+  background-size: cover;
+  z-index: 10;
+  left: -10px;
+  top: 5px;
+  display: none;
+}
+
+#run:hover:before {
+  display: block;
 }
 
 #attackBox{
@@ -359,6 +380,23 @@ left:76%;
 
 #potion{
   cursor: pointer;
+}
+
+#potion:before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 15px;
+  background-image: url(../arrow.png);
+  background-size: cover;
+  z-index: 10;
+  left: 30px;
+  top: 20px;
+  display: none;
+}
+
+#potion:hover:before {
+  display: block;
 }
 
 #quant{
@@ -424,11 +462,45 @@ right:10%;
 top:5%;
 }
 
+#scratch:before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 15px;
+  background-image: url(../arrow.png);
+  background-size: cover;
+  z-index: 10;
+  left: -30px;
+  top: -5px;
+  display: none;
+}
+
+#scratch:hover:before {
+  display: block;
+}
+
 #growl{
 cursor: pointer;
 position: absolute;
 right:10%;
 top:25%;
+}
+
+#growl:before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 15px;
+  background-image: url(../arrow.png);
+  background-size: cover;
+  z-index: 10;
+  left: -30px;
+  top: -5px;
+  display: none;
+}
+
+#growl:hover:before {
+  display: block;
 }
 
 #dash1{
@@ -761,7 +833,7 @@ border:1px solid darken(#BFBAC4,20%);
         display: none;
       }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1050px) {
 
  .screen{
     color:white;
