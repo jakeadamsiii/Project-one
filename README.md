@@ -13,7 +13,7 @@ The Poke'mon battler is a recreation of the battle engine of the first generatio
 It can be played here:
 [Pokemon game](https://quiet-fortress-14634.herokuapp.com/)
 
-![](Project-one/readme2.png)
+![Image](https://github.com/jakeadamsiii/Project-one/blob/master/readme1.png?raw=true)
 
 Copyright
 ---------
@@ -51,7 +51,7 @@ In keeping  with the original Gameboy theme, I used a 'gameboy-esque' shade of g
 
 After trying to find an appropriate image and failing to find one suitable, CSS was used to produce a Gameboy border for the battle screen.
 
-![](https://github.com/jakeadamsiii/Project-one/blob/master/readme3.png "Battle screen")
+![Image](https://github.com/jakeadamsiii/Project-one/blob/master/readme3.png?raw=true)
 
 Attack sprites again had to be made png files, the attack animations are largely jquery animation or fade transitions. I would have liked to reduce the swell in the JS file by transferring many of these animations to CSS. I started this process by making the flashing hit animation a class in CSS and then adding and removing the class in the JS.
 
@@ -65,7 +65,7 @@ The second screen was then added. A still from the original game was chosen as t
 
 After a battle is completed, a win screen will show, along with a score, and the user can choose to play again, and choose a new Poke'mon to play as.
 
-![](https://github.com/jakeadamsiii/Project-one/blob/master/readme2.png "Second screen")
+![](https://github.com/jakeadamsiii/Project-one/blob/master/readme2.png?raw=true)
 
 Challenges
 -----------
