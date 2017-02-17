@@ -759,7 +759,7 @@ pkmn.characterC = function characterC(){
   this.yourLevel=5;
   this.rivalLevel=5;
   this.aiAgression=3;
-  this.$you.attr('src','char.png');
+  this.$you.attr('src','char1.png');
   this.$rival.attr('src','squirtle.png');
   this.yourTotalHP = 50;
   this.yourHP =50;
