@@ -10,23 +10,27 @@
     <script src="dist/js/app.js" charset="utf-8"></script>
   </head>
   <body>
+    <!-- bad way of adding some responsiveness  -->
     <h1 class="screen">PLEASE VIEW ON A LARGER SCREEN!</h1>
 
+    <!-- Landing screen  -->
     <header>
       <img id="borderOne" class="border" src="borderBox.png" alt="border">
       <img id="background" src="pokemon.jpeg" alt="pokemon start screen">
-      <!-- <img id ="startscreenPointer" class="pointer" src="arrow.png" alt="arrow"> -->
       <p id="mute" class="mute">mute</p>
       <p id="play" class="play mute">play</p>
       <p id="start">Press start!</p>
       <audio autoplay id="startTheme" src="http://66.90.93.122/ost/pokemon-original-game-soundtrack/tmlaxizceu/101-opening.mp3" type="audio/mp3"></audio>
     </header>
 
+
     <main>
+      <!-- Character select screen -->
       <section id="lab">
         <audio id="labTheme" src="http://66.90.93.122/ost/pokemon-gameboy-sound-collection/lsjpnfzcmn/120-pokemon-gym.mp3" type="audio/mp3"></audio>
         <img id="oaks_lab" src="lab.jpg" alt="oaks lab">
         <div id="oakBox" class="text"></div>
+        <!-- pokemon images on mouseover -->
         <img id="borderBulba" class="pokeborder border" src= "borderBox.png" alt="border">
         <img id="borderChar" class="pokeborder border" src= "borderBox.png" alt="border">
         <img id="borderSquirt" class="pokeborder border" src= "borderBox.png" alt="border">
@@ -46,12 +50,13 @@
         <div class="ball" id="squirtBall"></div>
       </section>
 
-
+      <!-- battle screen -->
       <section id="battle">
         <div class="gb-body">
           <div class="gb-display-border">
             <audio id="battleTheme" src="http://66.90.93.122/ost/pokemon-original-game-soundtrack/tpkayboqli/115-battle-vs-trainer-.mp3" type="audio/mp3"></audio>
 
+            <!-- gameboy CSS border  -->
             <div class="display-header-text-first-border"></div>
             <div class="display-header-text-second-border"></div>
             <h5 class="display-header-text">DOT MATRIX WITH STEREO SOUND</h5>
@@ -60,6 +65,7 @@
             <div id="light" class="battery-led"></div>
             <div class="battery-led-text">BATTERY</div>
 
+            <!-- attack images to fade in  -->
             <img class="attackAnimation" id="scratchAnimation" src="scratch.png" alt="scratch animation">
             <img class="attackAnimation" id="rivalsScratchAnimation" src="scratch.png" alt="scratch animation">
             <img class="attackAnimation" id="thunderAnimation" src="thunderbolt1.png" alt="thunderbolt animation">
@@ -91,6 +97,7 @@
             <p id="play2" class="play mute mute2">play</p>
             <div id="textBox" class="text"></div>
 
+            <!-- possible attacks on 2 per pkmn -->
             <div id="attackBox">
               <p id="scratch"></p>
               <p id="growl"></p>
@@ -105,7 +112,7 @@
               <p class="back">back</p>
             </div>
 
-
+            <!-- win/lose screen -->
             <section id="winScreen">
               <p id="winLose"></p>
               <span id ="playAgain">Play Again?</span>

@@ -4,11 +4,13 @@
   font-family: 'Pokemon_GB';
 }
 
+/*inported pokemon font*/
 @font-face{
   font-family: 'Pokemon_GB';
   src: url(../assets/jackster-productions_pokemon-gb/Pokemon_GB.ttf);
 }
 
+/*stops page scrolling*/
 body, html {
     overflow: hidden;
 }
@@ -18,6 +20,7 @@ p{
   width:20%;
 }
 
+/*============= mute buttons ===================*/
 .play{
   display: none;
 }
@@ -36,6 +39,7 @@ p{
   top:89%;
   left:75%;
 }
+
 
 #info{
   position: absolute;
@@ -56,6 +60,7 @@ left:50%;
 transform: translate(-50%,-50%);
 }
 
+/*======== Arrow pointers =============*/
 .pointer{
   position: absolute;
   background: none;
@@ -85,6 +90,7 @@ transform: translate(-50%,-50%);
   width:15px;
 }
 
+/*========== Landing screen ==================*/
 #start{
   position:absolute;
   text-align: center;
@@ -131,6 +137,8 @@ transform: translate(-50%,-50%);
   background:none;
 }
 
+
+/*=========== Character select screen ============*/
 #lab{
   position: absolute;
   top:100%;
@@ -184,7 +192,6 @@ transform: translate(-50%,-50%);
   font-size: 130%;
   z-index:-1;
 }
-
 
 .pokemon{
   background: none;
@@ -251,7 +258,7 @@ left:76%;
   left:76%;
 }
 
-
+/*==================== Battle screen ===================*/
 
 #battle{
   position: absolute;
@@ -465,6 +472,8 @@ left:76%;
   line-height:150%;
 }
 
+/*======= Attacks =======*/
+
 #scratch{
 cursor: pointer;
 position: absolute;
@@ -545,6 +554,7 @@ left:24%;
 background: none;
 }
 
+/*============== win/ lose screen ============*/
 #winScreen{
   height: 100%;
   width:103%;
@@ -615,6 +625,8 @@ background: none;
   cursor: pointer;
 }
 
+
+/*health bars and battle information  */
 #yourhealth{
   height:1.1%;
   width:20.7%;
@@ -696,6 +708,8 @@ background: none;
   z-index:20;
   display: none;
 }
+
+/*============ Battle animations ============*/
 
 #rivalsScratchAnimation{
   left:26%;

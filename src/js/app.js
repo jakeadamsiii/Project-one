@@ -1,6 +1,11 @@
+//namespacing -  technique employed to avoid collisions with other objects or variables in the global namespace
+//The practice of namespacing is usually to create an object literal encapsulating your own functions and variables
+// so as not to collide with those created by other libraries
+
+//to call a function it must now be called as pkmn.myFunc()
 var pkmn = pkmn || {};
 
-//game variables defining variables that will change later
+//game variables: defining variables that will change later
 pkmn.you = '';
 pkmn.rival = '';
 pkmn.attack = '';
@@ -14,6 +19,7 @@ pkmn.itemCount=1;
 pkmn.yourLevel=0;
 pkmn.rivalLevel=0;
 
+//buffs and debuffs set to 1/0
 pkmn.player='';
 pkmn.missMultiplier=1;
 pkmn.debuffNum=10;
@@ -28,15 +34,18 @@ pkmn.rivalBuffClicks = 1;
 pkmn.baseAttack='';
 pkmn.rivalBaseAttack='';
 
+//win/loss set to 0
 pkmn.result = '';
 pkmn.wins=0;
 pkmn.losses=0;
 
+//setup functions
 pkmn.setup = function(){
   //scroll to top on page reload to prevent bugs
   $(window).on('beforeunload', function() {
     $(window).scrollTop(0);
   });
+
   //variables - screen containers
   this.$pressStart = $('#start');
   this.$battleScreen = $('#battle');
@@ -250,7 +259,7 @@ pkmn.battleMusic = function battleMusic(){
   this.$battleTheme[0].play();
 };
 
-//battle logic
+//============== battle logic =================
 
 //critical hit
 pkmn.checkForCrit = function checkForCrit(){
@@ -267,6 +276,7 @@ pkmn.checkForCrit = function checkForCrit(){
   }
 };
 
+//Checks for Miss
 pkmn.checkForMiss = function checkForMiss(){
   this.missVal = (this.you==='PIKACHU'&&this.turn==='you') ? this.debuffNum : 10;
   this.miss = Math.ceil(Math.random()*this.missVal);
@@ -286,6 +296,7 @@ pkmn.checkForMiss = function checkForMiss(){
   }
 };
 
+//Debuff function
 pkmn.debuff = function debuff(){
   if (this.debuffNum<=1.25){  // if statement used to prevent unwinable situation where attacks never hit
     this.fail=' But it failed!';
@@ -353,6 +364,7 @@ pkmn.rivalBuffCalculator = function rivalBuffCalculator(){
   pkmn.checkForRivalBuff();
 };
 
+//sets up base attack based on the pokemon you've selected
 pkmn.checkBaseAttack = function checkBaseAttack(){
   switch(this.you){
     case 'CHARMANDER':
@@ -374,7 +386,7 @@ pkmn.checkBaseAttack = function checkBaseAttack(){
   }
 };
 
-//checking for win conditions
+//checking for win conditions  - increase score; fade in win screen and change battery to off
 pkmn.winning = function winning(){
   this.$winLose.html(this.result);
   this.$yourScore.html(this.wins);
